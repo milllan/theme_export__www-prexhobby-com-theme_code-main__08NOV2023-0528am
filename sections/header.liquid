@@ -362,7 +362,8 @@ HEADER CONTENT
         {%- if section.settings.logo != blank -%}
           {%- capture image_size -%}{{ section.settings.logo_max_width }}x{%- endcapture -%}
 
-          <img class="Header__LogoImage Header__LogoImage--primary Image--lazyLoad Image--fadeIn"
+          <img class="Header__LogoImage Header__LogoImage--primary"
+               fetchpriority="high" decoding="async" loading="eager"
                src="{{ section.settings.logo | img_url: image_size }}"
                srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
                width="{{ section.settings.logo.width }}"
@@ -433,7 +434,7 @@ HEADER CONTENT
       </a>
 
        <a href="https://discord.gg/pMWRrrRP" class="header-discord-icon-div" target="_blank">
-      <img class="header-discord-icon" src="https://cdn.shopify.com/s/files/1/1374/2665/files/Discord-Logo-White-1.png?v=1653538006">
+      <img width="105" height="80" decoding="async" class="header-discord-icon" src="https://cdn.shopify.com/s/files/1/1374/2665/files/Discord-Logo-White-1.png?v=1653538006">
       </a>
 
       {%- if shop.customer_accounts_enabled and section.settings.show_icons or use_sidebar_menu -%}
@@ -513,11 +514,11 @@ HEADER CONTENT
       <i aria-hidden="true" focusable="false" role="presentation" class="icon icon-swym-wishlist"></i>
       </a>
       <a class="header-discord-icon-div rewards" href="#smile-referral-program-details">
-      <img src="https://cdn.sweettooth.io/v1/images/launcher_icons/bag.svg?color=%23FFFFFF" role="presentation">
+      <img width="30" height="30" decoding="async" src="https://cdn.sweettooth.io/v1/images/launcher_icons/bag.svg?color=%23FFFFFF" role="presentation">
       Rewards</a>
 
       <a href="https://discord.gg/pMWRrrRP" class="header-discord-icon-div" target="_blank">
-      <img class="header-discord-icon" src="https://cdn.shopify.com/s/files/1/1374/2665/files/Discord-Logo-White-1.png?v=1653538006">
+      <img width="105" height="80" decoding="async" class="header-discord-icon" src="https://cdn.shopify.com/s/files/1/1374/2665/files/Discord-Logo-White-1.png?v=1653538006">
       </a>
 
 
