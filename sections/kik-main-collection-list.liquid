@@ -1,0 +1,150 @@
+{%- liquid
+    assign collection_list = section.settings.collection_list
+    assign paginate_by = section.settings.items_per_page
+
+    assign columns_desktop = section.settings.columns_desktop
+    assign columns_tablet = section.settings.columns_tablet
+
+    if section.settings.columns_mobile > 2
+        assign columns_mobile = 2
+    else
+        assign columns_mobile = section.settings.columns_mobile
+    endif
+-%}
+
+{% capture grid_settings_classes %}
+    cgrid cgrid--{{ columns_desktop }}-col-desktop cgrid--{{ columns_mobile }}-col-tablet-down
+{% endcapture %}
+<div class="kik-section-wrapper kik-section-wrapper--collection-list">
+    {% liquid
+        assign next_collection_list = collection.url | append: '?view=' | append: section.settings.next_collection_list
+
+        if section.settings.next_collection_list == blank
+            assign next_collection_list = nil
+        endif
+    %}
+
+
+
+    <ul id="CollectionListContainer-{{ section.id }}" data-nextbatch="{{ next_collection_list }}" data-nextpage="{{ paginate.next.url }}" class="custom-origin collection-list {{ grid_settings_classes | strip | strip_newlines | remove: '  ' | remove: '   ' }}" role="list">
+
+      {%- for collection in collections -%}
+      {% assign serial_collection_flag = collection.metafields.custom.serial_collection_flag %}
+
+      {%- if collection.title contains "Origin" and serial_collection_flag == "Yes"  -%}
+          {%- if collection.title == "Origin List" -%}
+              {% continue %}
+          {%- endif -%}
+
+        <li class="collection-list__item cgrid__item product_count_{{ collection.all_products_count }}" data-worth="{{ collection.all_products_count }}">
+          {%- render 'kik-collection-item', section: section, block: block, collection: collection -%}
+        </li>
+
+      {%- endif -%}
+      {%- endfor -%}
+    </ul>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="https://st3ph.github.io/jquery.easyPaginate/js/jquery.easyPaginate.js"></script>
+<script>
+jQuery('.custom-origin li').sort(function(a, b) {
+    return $(b).data('worth') - $(a).data('worth');
+  }).appendTo('.custom-origin');
+
+  jQuery('ul.custom-origin').easyPaginate({
+              paginateElement: 'li.collection-list__item.cgrid__item',
+              elementsPerPage: 50,
+             effect: 'fade',
+      });
+</script>
+<style>
+
+.easyPaginateNav {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.easyPaginateNav a.last,.easyPaginateNav a.first {
+    display: none;
+}
+.easyPaginateNav a {padding:5px;}
+.easyPaginateNav a.current {font-weight:bold;text-decoration:underline;}
+.js .features--show-element-staggering .ProductList--grid .ProductItem {
+    visibility: visible !important;
+}
+.section--kik-main-collection-list{
+    overflow: hidden;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Main Collection List",
+  "tag": "section",
+  "class": "section--kik-main-collection-list",
+  "settings": [
+    {
+        "type": "collection_list",
+        "id": "collection_list",
+        "label": "Collections",
+        "limit": 48
+    },
+    {
+        "type": "text",
+        "id": "next_collection_list",
+        "label": "Next Collection List",
+        "info": "Template Suffix"
+    },
+    {
+        "type": "range",
+        "id": "items_per_page",
+        "min": 10,
+        "max": 48,
+        "step": 1,
+        "label": "Items per page",
+        "default": 48
+    },
+    {
+        "type": "header",
+        "content": "Grid Settings"
+    },
+    {
+        "type": "range",
+        "id": "columns_desktop",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "label": "Columns Desktop",
+        "default": 10
+    },
+    {
+        "type": "range",
+        "id": "columns_tablet",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "label": "Columns Tablet",
+        "default": 4
+    },
+    {
+        "type": "range",
+        "id": "columns_mobile",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "label": "Columns Mobile",
+        "default": 2,
+        "info": "Maximum of 2"
+    }
+  ],
+  "presets":[
+    {
+        "name": "Main Collection List",
+        "category": "AAA Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,285 @@
+{% if section.settings.show_special_filter %}
+  {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+  {%- assign active_filters_count = 0 -%}
+
+  {%- for filter in collection.filters -%}
+    {%- if filter.type == 'list' -%}
+      {%- assign active_filters_count = active_filters_count | plus: filter.active_values.size -%}
+    {%- elsif filter.type == 'price_range' and filter.min_value.value or filter.max_value.value -%}
+      {%- assign active_filters_count = active_filters_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  <form id="collection-filters-drawer-form-2" class="collection-filters-form">
+    {%- if section.settings.show_filters and collection.filters != empty -%}
+      <div id="cloud_filters">
+        <div class="cloud-filters--list special-filter">
+          <div class="Collapsible-filter-label">Availability</div>
+          <div class="Collapsible-filter-inner">
+            {%- for filter in collection.filters -%}
+              {%- assign downcase_filter_label = filter.label | downcase -%}
+              {% if filter.label == 'Availability'
+                or filter.label == 'Likes'
+                or filter.label == 'ship_date'
+                or filter.label == 'update_date'
+                or filter.label == 'lsg_product_avail'
+              %}
+                <div
+                  class="Collapsible Collapsible--padded Collapsible--dropdown {% if section.settings.expand_filters %}Collapsible--autoExpand{% endif %}"
+                  data-filter-index="{% increment filter_index %}"
+                >
+                  {%- if filter.type == 'boolean' -%}
+                    <div class="Collapsible__Button BooleanFilter">
+                      <label
+                        for="{{ filter.param_name }}"
+                        class="Heading u-h6"
+                      >
+                        {{- filter.label -}}
+                      </label>
+                      <input
+                        id="{{ filter.param_name }}"
+                        type="checkbox"
+                        class="switch-checkbox"
+                        name="{{ filter.param_name }}"
+                        value="1"
+                        {% if filter.true_value.active %}
+                          checked
+                        {% endif %}
+                      >
+                    </div>
+                  {%- else -%}
+                    <button
+                      type="button"
+                      class="Collapsible__Button Collapsible__Button-special Heading u-h6"
+                      data-filter-name="{{ filter.label | replace: " _", " " }}"
+                      data-action="toggle-collapsible"
+                      aria-expanded="false"
+                    >
+                      {% if filter.label == 'lsg_product_avail' %}
+                        Availability
+                      {% else %}
+                        {{- filter.label | replace: '_', ' ' -}}
+                      {% endif %}
+                      <span class="when-active">:</span>
+                      <div class="option-filter-list">
+                        {%- for filter_value in filter.values -%}
+                          {% if filter_value.active %}
+                            {% comment %}<div class="option-filter-item">{{ filter_value.label }}<span>,</span></div>{% endcomment %}
+                          {% endif %}
+                        {%- endfor -%}
+                      </div>
+                    </button>
+                  {%- endif -%}
+
+                  <div class="Collapsible__Inner">
+                    <div class="Collapsible__Content">
+                      <ul
+                        class="{% if section.settings.show_filter_color_swatch and color_label contains downcase_filter_label %}ColorSwatchList HorizontalList HorizontalList--spacingTight{% else %}Linklist{% endif %}"
+                      >
+                        {%- if section.settings.show_filter_color_swatch
+                          and color_label contains downcase_filter_label
+                        -%}
+                          {%- assign color_swatch_config = settings.color_swatch_config
+                            | newline_to_br
+                            | split: '<br />'
+                          -%}
+
+                          {%- for filter_value in filter.values -%}
+                            <li class="HorizontalList__Item">
+                              {%- capture filter_value_id -%}@@@@-{{ filter_value.param_name | append: filter_value.value | handle
+                                                        }}{%- endcapture -%}
+                              <input
+                                id="{{ filter_value_id | escape }}"
+                                class="ColorSwatch__Radio"
+                                type="checkbox"
+                                name="{{ filter_value.param_name }}"
+                                value="{{ filter_value.value }}"
+                                {% if filter_value.active %}
+                                  checked="checked"
+                                {% endif %}
+                              >
+
+                              <label
+                                for="{{ filter_value_id | escape }}"
+                                class="ColorSwatch"
+                                data-tooltip="{{ filter_value.label | escape }}"
+                                style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: filter_value.label %}"
+                              >
+                                <span class="u-visually-hidden">{{ filter_value.label }}</span>
+                              </label>
+                            </li>
+                          {%- endfor -%}
+                        {%- else -%}
+                          {%- if filter.type == 'list' -%}
+                            {%- for filter_value in filter.values -%}
+                              {%- capture filter_value_id -%}@@@@-{{ filter_value.param_name | append: filter_value.value | handle
+                                                        }}{%- endcapture -%}
+
+                              <li class="Linklist__Item">
+                                <input
+                                  class="Linklist__Checkbox"
+                                  filter-label="{{ filter.label | replace: " _", " " }}"
+                                  data-value="{{- filter_value.label }}"
+                                  id="{{ filter_value_id | escape }}"
+                                  type="checkbox"
+                                  name="{{ filter_value.param_name }}"
+                                  value="{{ filter_value.value }}"
+                                  {% if filter_value.active %}
+                                    checked
+                                  {% endif %}
+                                >
+                                <label
+                                  for="{{ filter_value_id | escape }}"
+                                  data-value="{{- filter_value.label | downcase | replace: " ", " _" }}"
+                                  class="Text--subdued Link Link--primary"
+                                >
+                                  {{- filter_value.label }} ({{ filter_value.count -}}
+                                  )
+                                </label>
+                              </li>
+                            {%- endfor -%}
+                          {%- elsif filter.type == 'price_range' -%}
+                            <price-range class="price-range">
+                              {%- assign min_value = filter.min_value.value | default: 0.0 | divided_by: 100.0 -%}
+                              {%- assign max_value = filter.max_value.value
+                                | default: filter.range_max
+                                | divided_by: 100.0
+                              -%}
+                              {%- assign range_max = filter.range_max | divided_by: 100.0 | ceil -%}
+
+                              {% assign lower_bound_progress = min_value | divided_by: range_max | times: 100.0 %}
+                              {% assign higher_bound_progress = max_value | divided_by: range_max | times: 100.0 %}
+
+                              <div
+                                class="price-range__range-group range-group"
+                                style="--range-min: {{ lower_bound_progress }}%; --range-max: {{ higher_bound_progress }}%"
+                              >
+                                <input
+                                  type="range"
+                                  aria-label="{{ 'collection.filter.price_filter_from' | t }}"
+                                  class="range"
+                                  min="0"
+                                  max="{{ range_max | ceil }}"
+                                  value="{{ min_value | ceil }}"
+                                >
+                                <input
+                                  type="range"
+                                  aria-label="{{ 'collection.filter.price_filter_to' | t }}"
+                                  class="range"
+                                  min="0"
+                                  max="{{ range_max | ceil }}"
+                                  value="{{ max_value | ceil }}"
+                                >
+                              </div>
+
+                              <div class="price-range__input-group">
+                                <div class="price-range__input input-prefix text--xsmall">
+                                  <span class="input-prefix__value text--subdued">{{ cart.currency.symbol }}</span>
+                                  <input
+                                    aria-label="{{ 'collection.filter.price_filter_from' | t }}"
+                                    class="input-prefix__field"
+                                    type="number"
+                                    inputmode="numeric"
+                                    {% if filter.min_value.value %}
+                                      value="{{ min_value | ceil }}"
+                                    {% endif %}
+                                    name="{{ filter.min_value.param_name }}"
+                                    id="{{ filter.min_value.param_name | handle }}"
+                                    min="0"
+                                    max="{{ max_value | ceil }}"
+                                    placeholder="0"
+                                  >
+                                </div>
+
+                                <span class="price-range__delimiter text--small">-</span>
+
+                                <div class="price-range__input input-prefix text--xsmall">
+                                  <span class="input-prefix__value text--subdued">{{ cart.currency.symbol }}</span>
+                                  <input
+                                    aria-label="{{ 'collection.filter.price_filter_to' | t }}"
+                                    class="input-prefix__field"
+                                    type="number"
+                                    inputmode="numeric"
+                                    {% if filter.max_value.value %}
+                                      value="{{ max_value | ceil }}"
+                                    {% endif %}
+                                    name="{{ filter.max_value.param_name }}"
+                                    id="{{ filter.max_value.param_name | handle }}"
+                                    min="{{ min_value | ceil }}"
+                                    max="{{ range_max | ceil }}"
+                                    placeholder="{{ range_max | ceil }}"
+                                  >
+                                </div>
+                              </div>
+                            </price-range>
+                          {%- endif -%}
+                        {%- endif -%}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              <script>
+                if (window.screen.width > 640) {
+                    $(document).on("click", "button.Collapsible__Button-special[data-filter-name='{{ filter.label }}']", function () {
+                        $("button.Collapsible__Button-special").not(this).next().removeClass("active");
+                        $(this).next().toggleClass("active");
+                    });
+                }
+              </script>
+            {%- endfor -%}
+          </div>
+          {% capture tag_string %}{% endcapture %}
+          {%- for filter in collection.filters -%}
+            {% if filter.label == 'Availability'
+              or filter.label == 'Likes'
+              or filter.label == 'ship_date'
+              or filter.label == 'update_date'
+              or filter.label == 'lsg_product_avail'
+            %}
+              {%- for filter_value in filter.values -%}
+                {% if filter_value.active %}
+                  {% if tag_string != '' %}
+                    {% capture tag_string %}{{ tag_string }}, {{ filter_value.label }}{% endcapture %}
+                  {% else %}
+                    {% capture tag_string %}{{ tag_string }}{{ filter_value.label }}{% endcapture %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+          {% if tag_string != '' %}
+            <div class="show-filter-options">
+              {{ tag_string }}
+            </div>
+          {% endif %}
+          {%- if active_filters_count > 0 and tag_string != '' -%}
+            <button
+              type="button"
+              class="CollectionFilters__ClearButton Button Button--secondary"
+              data-action="clear-filters"
+              data-url="{{ collection.url }}"
+            >
+              Clear all filters
+            </button>
+          {% endif %}
+        </div>
+        <script>
+          if (window.screen.width > 640) {
+              $(document).on('click', ".Collapsible-filter-label", function () {
+                  $(this).siblings().toggleClass('active');
+              })
+          }
+        </script>
+      </div>
+    {%- endif -%}
+  </form>
+{% endif %}
+<style>
+  .Collapsible[data-filter-name="likes"]:not(.Collapsible--dropdown),
+  .Collapsible[data-filter-name="ship_date"]:not(.Collapsible--dropdown),
+  .Collapsible[data-filter-name="update_date"]:not(.Collapsible--dropdown),
+  .when-active {
+      display: none;
+  }
+</style>

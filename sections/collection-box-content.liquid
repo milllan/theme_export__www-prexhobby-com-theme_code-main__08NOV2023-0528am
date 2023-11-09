@@ -1,0 +1,105 @@
+<section class="section-{{ section.id }} collection-box-content" data-section-id="{{ section.id }}" data-section-type="collection-box-content">
+    <div class="container-section">
+        <div class="inner-section ">
+            {% for block in section.blocks %}
+                {%- assign collection = collections[block.settings.collection] -%}
+                <div class="box-content {{ block.settings.image_size }}  {% if block.settings.image_size == 'round' %} roundbox {% endif %}">
+                    <a href="{{ collection.url }}" aria-label="Shop all pre-order items">
+                        {% if block.settings.image_size == 'small' %}
+                            <img src="{{ block.settings.col_img | img_url: '400x400' }}" alt="{{ collection.title }}">
+                        {% elsif block.settings.image_size == 'round' %}
+                        <img class="Image--lazyLoad" src="{{ block.settings.col_img | img_url: '400x400' }}" alt="{{ collection.title }}">
+                        <p class="round-img-hover">
+                          <img class="Image--lazyLoad" src="https://cdn.shopify.com/s/files/1/0827/5525/6597/files/arrow.png" alt="arrow-icon">
+                        </p>
+                        {% else %}
+                            <img src="{{ block.settings.col_img | img_url: '828x400' }}" alt="{{ collection.title }}">
+                        {% endif %}
+                    </a>
+                    {% if block.settings.title != blank %}
+                        <div class="title-box" style="color:{{ section.settings.tit_color }}" onclick="window.location.href = '{{ collection.url }}'">
+                            <span>{{ block.settings.title }}</span>
+                        </div>
+                    {% else %}
+                        <div class="title-box" style="color:{{ section.settings.tit_color }}" onclick="window.location.href = '{{ collection.url }}'">
+                            <span>{{ collection.title }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<style>
+    .title-box span::before {
+        background-color: {{ section.settings.tit_color }};
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Collection Box Content",
+    "max_blocks": 26,
+    "settings": [
+        {
+            "type": "color",
+            "id": "tit_color",
+            "label": "Color title",
+            "default": "#da5f6f"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "collection",
+            "name": "Box content",
+            "settings": [
+                {
+                    "type": "collection",
+                    "id": "collection",
+                    "label": "Collection"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "col_img",
+                    "label": "Image Box",
+                    "info": "Large Image must have size 828x400 and Small/Round Image have size 400x400"
+                },
+                {
+                    "type": "select",
+                    "id": "image_size",
+                    "label": "Image size",
+                    "options": [
+                      {
+                        "value": "lagre",
+                        "label": "Lagre Item"
+                      },
+                      {
+                        "value": "small",
+                        "label": "Small Item"
+                      },
+                      {
+                        "value": "round",
+                        "label": "Round"
+                      }
+                    ]
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+        "name": "Collection Box Content",
+          "blocks": [
+            {
+              "type": "collection"
+            }
+          ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,427 @@
+{%- if section.settings.layout_mode == 'carousel' -%}
+  {%- capture flickity_options -%}
+  {
+    "prevNextButtons": true,
+    "pageDots": false,
+    "wrapAround": false,
+    "contain": true,
+    "cellAlign": "left",
+    "watchCSS": true,
+    "dragThreshold": 8,
+    "groupCells": true,
+    "arrowShape": {"x0": 20, "x1": 60, "y1": 40, "x2": 60, "y2": 35, "x3": 25}
+  }
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- capture section_settings -%}
+{
+  "layout": {{ section.settings.layout_mode | json }}
+}
+{%- endcapture -%}
+
+<section
+  class="Section Section--spacingNormal"
+  data-section-id="{{ section.id }}"
+  data-section-type="featured-collections"
+  data-settings='{{ section_settings }}'
+>
+  <header class="SectionHeader SectionHeader--center">
+    <div class="Container">
+      {%- if section.settings.title != blank -%}
+        <h3 class="SectionHeader__SubHeading Heading u-h6">{{ section.settings.title | escape }}</h3>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 1 -%}
+        <div class="SectionHeader__TabList TabList" role="tablist">
+          {%- for block in section.blocks -%}
+            {%- assign collection = collections[block.settings.collection] -%}
+
+            <button
+              class="Heading u-h1 TabList__Item {% if forloop.first %}is-active{% endif %}"
+              data-action="toggle-tab"
+              aria-controls="block-{{ block.id }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              role="tab"
+            >
+              {%- if collection != empty -%}
+                {{- block.settings.title | default: collection.title -}}
+              {%- else -%}
+                {{- 'home_page.onboarding.collection_title' | t -}}
+              {%- endif -%}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        {%- assign collection = collections[section.blocks.first.settings.collection] -%}
+
+        {%- if collection != empty -%}
+          <h2 class="SectionHeader__Heading Heading u-h1">
+            {{ section.blocks.first.settings.title | default: collection.title }}
+          </h2>
+        {%- else -%}
+          <h2 class="SectionHeader__Heading Heading u-h1">{{ 'home_page.onboarding.collection_title' | t }}</h2>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </header>
+
+  {%- for block in section.blocks -%}
+    {%- assign collection = collections[block.settings.collection] -%}
+  
+    <div
+      class="TabPanel"
+      id="block-{{ block.id }}"
+      aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+      role="tabpanel"
+      {{ block.shopify_attributes }}
+    >
+      {%- if block.settings.button_text != blank -%}
+            <div class="right-button-text">
+              <a href="{{ collection.url }}"
+                 class="Button--primary">{{ block.settings.button_text | escape }}</a>
+            </div>
+    {%- endif -%}
+      <div class="ProductListWrapper">
+        {%- if collection != empty -%}
+          {%- assign item_count = block.settings.grid_items_count -%}
+
+          {%- if collection.products_count < block.settings.grid_items_count -%}
+            {%- assign item_count = collection.products_count -%}
+          {%- endif -%}
+
+          {%- if section.settings.layout_mode == 'grid' -%}
+            <div
+              class="ProductList ProductList--grid ProductList--removeMargin Grid"
+              data-mobile-count="{{ section.settings.grid_mobile_items_per_row }}"
+              data-desktop-count="{{ section.settings.grid_desktop_items_per_row }}"
+            >
+              {%- for product in collection.products limit: block.settings.grid_items_count -%}
+                <div class="Grid__Cell 1/{{ section.settings.grid_mobile_items_per_row }}--phone 1/2--tablet 1/{{ section.settings.grid_desktop_items_per_row }}--lap-and-up">
+                  {%- render 'product-item',
+                    product: product,
+                    show_product_rank: section.settings.show_product_rank,
+                    show_product_info: section.settings.show_product_info,
+                    show_vendor: section.settings.show_vendor,
+                    show_color_swatch: section.settings.show_color_swatch,
+                    show_labels: true,
+                    crown_icon: true,
+                     index : forloop.index
+                  -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <div class="ProductList ProductList--carousel Carousel" data-flickity-config='{{ flickity_options }}'>
+              {%- for product in collection.products limit: block.settings.grid_items_count -%}
+                <div class="Carousel__Cell">
+                  {%- render 'product-item',
+                    product: product,
+                    show_product_rank: section.settings.show_product_rank,
+                    show_product_info: section.settings.show_product_info,
+                    show_vendor: section.settings.show_vendor,
+                    show_color_swatch: section.settings.show_color_swatch,
+                    show_labels: true,
+                    crown_icon: true,
+                       index : forloop.index
+                  -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        {%- else -%}
+          {%- comment -%}If collection is not set, we use placeholder content for all three layout mode{%- endcomment -%}
+
+          {%- capture products_placeholder -%}
+            {%- for i in (1..block.settings.grid_items_count) -%}
+              <div class="{% if section.settings.layout_mode == 'grid' %}Grid__Cell 1/{{ section.settings.grid_mobile_items_per_row }}--phone 1/2--tablet-and-up 1/{{ section.settings.grid_desktop_items_per_row }}--lap-and-up{% else %}Carousel__Cell{% endif %}">
+                {% capture placeholder_index %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                {%- render 'product-item-placeholder', placeholder_index: placeholder_index -%}
+              </div>
+            {%- endfor -%}
+          {%- endcapture -%}
+
+          {%- if section.settings.layout_mode == 'grid' -%}
+            <div
+              class="ProductList ProductList--grid ProductList--removeMargin Grid"
+              data-mobile-count="{{ section.settings.grid_mobile_items_per_row }}"
+              data-desktop-count="{{ section.settings.grid_desktop_items_per_row }}"
+            >
+              {{ products_placeholder }}
+            </div>
+          {%- else -%}
+            <div class="ProductList ProductList--carousel Carousel" data-flickity-config="{{ flickity_options }}">
+              {{ products_placeholder }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+    {% comment %} Changing {% endcomment %}
+    <style>
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Grid__Cell {
+        width: calc(100% / {{ section.settings.grid_desktop_items_per_row }});
+      }
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Carousel__Cell {
+        width: calc(100% / {{ section.settings.grid_desktop_items_per_row }})
+      }
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .ProductItem {
+        position: relative;
+        padding-top: 28px;
+      }
+      @media (max-width: 960px) {
+        [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Carousel__Cell,
+        [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Grid__Cell {
+          width: calc(100% / {{ section.settings.grid_mobile_items_per_row }})
+        }
+      }
+    </style>
+    {% if section.settings.show_product_rank %}
+    <style>
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Grid__Cell:first-child .ProductItem:before,
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Carousel__Cell:first-child .ProductItem:before {
+        content: '1';
+        background: url(https://cdn.shopify.com/s/files/1/0529/4712/4404/files/icon_rank_gold.png?v=1673606097) no-repeat 0 0/48px auto;
+        top: 0;
+        width: 28px;
+        height: 20px;
+        text-align: center;
+        padding-top: 8px;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        font-size: 11px;
+        line-height: 1.1;
+        color: #fff;
+        background-size: cover;
+      }
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Grid__Cell:nth-child(2) .ProductItem:before,
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Carousel__Cell:nth-child(2) .ProductItem:before {
+        content: '2';
+        background: url(https://cdn.shopify.com/s/files/1/0529/4712/4404/files/icon_rank_silver.png?v=1673606112) no-repeat 0 0/48px auto;
+        top: 0;
+        width: 28px;
+        height: 20px;
+        text-align: center;
+        padding-top: 8px;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        font-size: 11px;
+        line-height: 1.1;
+        color: #fff;
+        background-size: cover;
+      }
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Grid__Cell:nth-child(3) .ProductItem:before,
+      [data-section-id="{{ section.id }}"] .ProductListWrapper .ProductList .Carousel__Cell:nth-child(3) .ProductItem:before {
+        content: '3';
+        background: url(https://cdn.shopify.com/s/files/1/0529/4712/4404/files/icon_rank_bronze.png?v=1673606137) no-repeat 0 0/48px auto;
+        top: 0;
+        width: 28px;
+        height: 20px;
+        text-align: center;
+        padding-top: 7px;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        font-size: 11px;
+        line-height: 1.1;
+        color: #fff;
+        background-size: cover;
+      }
+    </style>
+    {% endif %}
+    {% comment %} End Changing {% endcomment %}
+  {%- endfor -%}
+  <style>
+    .Section.Section--spacingNormal {
+      position: relative;
+    }
+
+    .right-button-text {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      padding: 18px 50px 0;
+      display: flex;
+      justify-content: flex-end;
+      max-width: 200px;
+    }
+
+    .right-button-text .Button--primary {
+      color: #1c1b1b;
+      font-weight: 600;
+      font-family: var(--heading-font-family);
+    }
+
+    @media (max-width: 960px) {
+      .right-button-text {
+        padding-right: 12px;
+      }
+    }
+  </style>
+</section>
+
+{%- capture hack -%}
+{%- comment -%}This is just an ugly hack to make those variables appear as part of the theme editor in the General Settings{%- endcomment -%}
+{% if section.settings.layout_mode == 'grid' %}{{ settings.product_list_horizontal_spacing }},{{ settings.product_list_vertical_spacing }}{% endif %}
+{%- endcapture -%}
+
+{% schema %}
+{
+  "name": "Featured collections",
+  "class": "shopify-section--bordered",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Sub-heading",
+      "default": "Featured collection"
+    },
+    {
+      "type": "select",
+      "id": "layout_mode",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_rank",
+      "label": "Show product Rank",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_info",
+      "label": "Show product info",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatch",
+      "label": "Show color swatch",
+      "info": "Some colors appear white? [Learn more](http://support.maestrooo.com/article/80-product-uploading-custom-color-for-color-swatch).",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Grid",
+      "info": "Those settings apply only if the layout mode is set to grid."
+    },
+    {
+      "type": "select",
+      "id": "grid_mobile_items_per_row",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "min": 2,
+      "max": 10,
+      "id": "grid_desktop_items_per_row",
+      "label": "Products per row (desktop)",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Product Status"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_status",
+      "label": "Show Status by Product Metafields",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "meta_text_color",
+      "label": "Color for Product Metafields",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "meta_text_bg",
+      "label": "Background-color for Product Metafields",
+      "default": "#da5f6f"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "info": "If none is set, collection title is used."
+        },
+        {
+          "type": "range",
+          "id": "grid_items_count",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "label": "Products to show",
+          "default": 8
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "View all products"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Collection",
+      "name": "Featured collections",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

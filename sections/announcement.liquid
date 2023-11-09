@@ -1,0 +1,110 @@
+{%- if section.settings.enable_bar -%}
+  {%- unless section.settings.home_page_only and template != 'index' -%}
+    <section id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="announcement-bar">
+      <div class="AnnouncementBar">
+        <div class="AnnouncementBar__Wrapper AnnouncementBar__Wrapper_pb-6">
+          <p class="AnnouncementBar__Content Heading">
+            {%- if section.settings.link -%}
+              <a href="{{ section.settings.link }}">{{ section.settings.content}}</a>
+            {%- else -%}
+              {{ section.settings.content | escape }}
+            {%- endif -%}
+          </p>
+        </div>
+
+        <div class="Search__Inner Search__Container_Announcement">
+          <div class="Search__SearchBar Search__SearchBar__Announcement">
+            <form action="/search" name="GET" role="search" class=" Search__Form_Announcement">
+              <div class="Search__InputIconWrapper Search__InputIconWrapper_Announcement">
+        <span class="hidden-tablet-and-up"><svg class="Icon Icon--search" role="presentation" viewBox="0 0 18 17">
+        <g transform="translate(1 1)" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <path d="M16 16l-5.0752-5.0752"></path>
+        <circle cx="6.4" cy="6.4" r="6.4"></circle>
+        </g>
+        </svg></span>
+                <span class="hidden-phone"><svg class="Icon Icon--search-desktop Icon--search-desktop_Announcement" role="presentation"
+                                                viewBox="0 0 21 21">
+        <g transform="translate(1 1)" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd"
+           stroke-linecap="square">
+        <path d="M18 18l-5.7096-5.7096"></path>
+        <circle cx="7.2" cy="7.2" r="7.2"></circle>
+        </g>
+        </svg></span>
+              </div>
+                <input type="search" class="Search__Input Heading Search__Input_Announcement" name="q" autocomplete="off" autocorrect="off"
+                       autocapitalize="off" aria-label="Search..."  autofocus="">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+
+                  <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                </svg>
+                <input type="hidden" name="type" value="product">
+
+            </form>
+          </div>
+
+          <div class="Search__Results" aria-hidden="true">
+            <div class="PageLayout PageLayout--breakLap">
+              <div class="PageLayout__Section"></div>
+              <div class="PageLayout__Section PageLayout__Section--secondary"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <style>
+      #section-{{ section.id }} {
+        background: {{ section.settings.background }};
+        color: {{ section.settings.text_color }};
+      }
+    </style>
+
+    <script>
+      document.documentElement.style.setProperty('--announcement-bar-height', document.getElementById('shopify-section-announcement').offsetHeight + 'px');
+    </script>
+  {%- endunless -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_bar",
+      "label": "Enable bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": "Home page only",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Text",
+      "default": "Announce something here"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ]
+}
+{% endschema %}

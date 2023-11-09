@@ -1,0 +1,29 @@
+<section class="shipping_policy">
+<h2>{{ section.settings.section_title | escape }}</h2>
+<p>{{ section.settings.text }}</p>
+</section>
+{% schema %}
+{
+  "name": "Shipping Policy",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Talk about your brand"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shipping Policy",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}

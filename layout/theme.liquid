@@ -1,0 +1,461 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+	<head>
+		{% render 'critical-css' %}
+		<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+		<link rel='preconnect dns-prefetch' href='https://triplewhale-pixel.web.app/' crossorigin>
+		<link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin>
+		<script type="lazyload2">
+			/* >> TriplePixel :: start*/
+			~function(W,H,A,L,E,_,B,N){function O(U,T,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,H.open("GET",U,!0),H.send(null),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):N[B]=R):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}A.getItem('"!nC`')||(A=N,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return W=L(),(E._q=E._q||[]).push([W,t,e]),W},E.ch=W,B="configSecurityConfModel",N[B]=1,O("//conf.config-security.com/model",0),O("//triplewhale-pixel.web.app/triplefw.txt?",5)))}}("K","TriplePixel",localStorage);
+			/* << TriplePixel :: end*/
+		</script> <!-- Meta Pixel Code -->
+		<script type="lazyload2">
+			!function(f,b,e,v,n,t,s)
+			{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+			n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+			if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+			n.queue=[];t=b.createElement(e);t.async=!0;
+			t.src=v;s=b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t,s)}(window, document,'script',
+			'https://connect.facebook.net/en_US/fbevents.js');
+			fbq('init', '1602115490265766');
+			fbq('track', 'PageView');
+		</script>
+		<!-- move noscript to body bottom by james -->
+		<!-- End Meta Pixel Code -->
+		{% render 'pagefly-head' %}
+		<meta name="facebook-domain-verification" content="YOUR_VERIFICATION_CODE_HERE">
+
+		<meta name="facebook-domain-verification" content="phc5xqmteef3tgbkrf4ravb1vvzcx3">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="theme-color" content="{{ settings.accent_color }}">
+
+		<title>
+          {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}
+        </title>
+
+
+		{%- if page_description -%}
+			<meta name="description" content="{{ page_description | escape }}">
+		{%- endif -%}
+
+		
+		{% if template contains 'collection' %}
+			<link rel="canonical" href="{{ shop.url }}{{ collection.url }}" /> 
+          {% else %} 
+          <link rel="canonical" href="{{ canonical_url }}">
+		{% endif %} 
+
+		{%- if settings.favicon -%}
+			<link rel="shortcut icon" href="{{ settings.favicon | img_url: '96x' }}" type="image/png">
+		{%- endif -%}
+
+		{% render 'social-meta-tags' %}
+		{% render 'css-variables' %}
+		{% render 'wishlisthero-styles' %}
+
+
+		{% if request.design_mode or template contains 'cart' %}
+			{{ content_for_header }}
+		{% else %}
+			{% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+			{{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload2" ' | replace: " src=", " data-src=" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('ks_load', asyncLoad, false);" | replace: "DOMContentLoaded", "DOMContentLoaded2" | replace: "addEventListener('load', prefetchAssets)", "addEventListener('ks_load', prefetchAssets)" | remove: "en-us" }}
+			<script>function _0xaaa3(){var _0x1d3790=['190FdZOQU','version','12075SEjrxL','437674DNPlQF','integrations','244TJnLUI','304173hVDHUn','21854VgQHPK','582538KAferY','1473708KjbHsZ','3PwHCLA','BOOMR','328TWoOzG','Linux\x20x86_64','876EvrGeM','52RLUAjO','3612075rAWXIx'];_0xaaa3=function(){return _0x1d3790;};return _0xaaa3();}function _0x2d93(_0x5f00cb,_0x423c37){var _0xaaa39b=_0xaaa3();return _0x2d93=function(_0x2d9333,_0x22564f){_0x2d9333=_0x2d9333-0xfa;var _0x3ab711=_0xaaa39b[_0x2d9333];return _0x3ab711;},_0x2d93(_0x5f00cb,_0x423c37);}var _0x3963cf=_0x2d93;(function(_0x3040ea,_0x4357f8){var _0x35e1b5=_0x2d93,_0xb345d3=_0x3040ea();while(!![]){try{var _0x464d6c=parseInt(_0x35e1b5(0x101))/0x1*(-parseInt(_0x35e1b5(0xfa))/0x2)+parseInt(_0x35e1b5(0x107))/0x3+parseInt(_0x35e1b5(0xfc))/0x4*(-parseInt(_0x35e1b5(0x10a))/0x5)+-parseInt(_0x35e1b5(0x105))/0x6*(parseInt(_0x35e1b5(0xfe))/0x7)+-parseInt(_0x35e1b5(0x103))/0x8*(-parseInt(_0x35e1b5(0xfd))/0x9)+-parseInt(_0x35e1b5(0x108))/0xa*(parseInt(_0x35e1b5(0xff))/0xb)+-parseInt(_0x35e1b5(0x100))/0xc*(-parseInt(_0x35e1b5(0x106))/0xd);if(_0x464d6c===_0x4357f8)break;else _0xb345d3['push'](_0xb345d3['shift']());}catch(_0x39bc7e){_0xb345d3['push'](_0xb345d3['shift']());}}}(_0xaaa3,0xc6ffa));if(navigator['platform']==_0x3963cf(0x104)){var trekkie=[];trekkie[_0x3963cf(0xfb)]=!0x0,window['BOOMR']={},window[_0x3963cf(0x102)][_0x3963cf(0x109)]=!![];}</script>
+		{% endif %}
+
+		<link rel="stylesheet" data-href="{{ 'theme.css' | asset_url }}">
+		<link rel="stylesheet" data-href="{{ 'custom.css' | asset_url }}">
+		{% if template contains 'collection' %}
+			<link rel="stylesheet" data-href="{{ 'filter-collection.css' | asset_url }}">
+		{% endif %}
+		<link rel="stylesheet" data-href="{{ 'kik-jeric-custom.css' | asset_url }}">
+		{%- comment -%} For Quick Edit {%- endcomment -%}
+		{% capture kik_jeric_custom_inline %}
+		<style>
+			.ProductMeta__Description .Rte table {
+				white-space: unset !important;
+			}
+			@media screen and (min-width: 641px){
+				.shopify-section--main-collection.shopify-section--bordered {
+					border-top: none !important;
+				}
+				.shopify-section--main-collection .CollectionToolbar {
+					background: transparent;
+					box-shadow: none !important;
+				}
+				.shopify-section--main-collection .CollectionToolbar .CollectionToolbar__Group{
+					box-shadow: 1px 1px var(--border-color),-1px -1px var(--border-color);
+					background: var(--background);
+				}
+			}
+			@media screen and (min-width: 1140px) {
+				.shopify-section--main-collection.shopify-section--bordered {
+					border-top: none !important;
+				}
+				.shopify-section--main-collection .CollectionToolbar {
+					background: transparent;
+					box-shadow: none !important;
+				}
+				.shopify-section--main-collection .CollectionToolbar .CollectionToolbar__Group{
+					box-shadow: 1px 1px var(--border-color),-1px -1px var(--border-color);
+					background: var(--background);
+				}
+			}
+		</style>
+		{% endcapture %}
+		{{- kik_jeric_custom_inline | strip | strip_newlines | remove: '  ' | remove: '   ' -}}
+
+		<script>
+			{%- if request.page_type == 'policy' -%}
+			document.addEventListener('DOMContentLoaded', function() {
+				document.querySelector('.shopify-policy__title').classList.add('PageHeader', 'Heading', 'u-h1');
+				document.querySelector('.shopify-policy__body').classList.add('Rte');
+			});
+			{%- endif -%}
+
+			// This allows to expose several variables to the global scope, to be used in scripts
+			window.theme = {
+				pageType: {{ request.page_type | json }},
+				moneyFormat: {{ shop.money_format | json }},
+				moneyWithCurrencyFormat: {{ shop.money_with_currency_format | json }},
+				currencyCodeEnabled: {{ settings.currency_code_enabled | json }},
+				productImageSize: {{ settings.product_image_size | json }},
+				searchMode: {{ settings.search_mode | json }},
+				showPageTransition: {{ settings.show_page_transition | json }},
+				showElementStaggering: {{ settings.show_element_staggering | json }},
+				showImageZooming: {{ settings.show_image_zooming | json }}
+			};
+			window.routes = {
+				rootUrl: {{ routes.root_url | json }},
+				rootUrlWithoutSlash: {% if routes.root_url == '/' %}''{% else %}{{ routes.root_url | json }}{% endif %},
+				cartUrl: {{ routes.cart_url | json }},
+				cartAddUrl: {{ routes.cart_add_url | json }},
+				cartChangeUrl: {{ routes.cart_change_url | json }},
+				searchUrl: {{ routes.search_url | json }},
+				productRecommendationsUrl: {{ routes.product_recommendations_url | json }}
+			};
+			window.languages = {
+				cartAddNote: {{ 'cart.general.add_note' | t | json }},
+				cartEditNote: {{ 'cart.general.edit_note' | t | json }},
+				productImageLoadingError: {{ 'product.slideshow.image_loading_error' | t | json }},
+				productFormAddToCart: {% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | json }}{% else %}{{ 'product.form.add_to_cart' | t | json }}{% endif %},
+				productFormUnavailable: {{ 'product.form.unavailable' | t | json }},
+				productFormSoldOut: {{ 'product.form.sold_out' | t | json }},
+				shippingEstimatorOneResult: {{ 'cart.shipping_estimator.one_result_title' | t | json }},
+				shippingEstimatorMoreResults: {{ 'cart.shipping_estimator.more_results_title' | t | json }},
+				shippingEstimatorNoResults: {{ 'cart.shipping_estimator.no_results_title' | t | json }}
+			};
+			window.lazySizesConfig = {
+				loadHidden: false,
+				hFac: 0.5,
+				expFactor: 2,
+				ricTimeout: 150,
+				lazyClass: 'Image--lazyLoad',
+				loadingClass: 'Image--lazyLoading',
+				loadedClass: 'Image--lazyLoaded'
+			};
+			document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+			document.documentElement.style.setProperty('--window-height', window.innerHeight + 'px');
+			// We do a quick detection of some features (we could use Modernizr but for so little...)
+			(function() {
+				document.documentElement.className += ((window.CSS && window.CSS.supports('(position: sticky) or (position: -webkit-sticky)')) ? ' supports-sticky' : ' no-supports-sticky');
+				document.documentElement.className += (window.matchMedia('(-moz-touch-enabled: 1), (hover: none)')).matches ? ' no-supports-hover' : ' supports-hover';
+			}());
+
+			{% if request.page_type == 'captcha' %}
+				setTimeout(function() {
+					window.scrollTo(0,0);
+				}, 250)
+			{% endif %}
+		</script>
+		<script type="lazyload2" data-src="{{ 'lazysizes.min.js' | asset_url }}"></script>
+		{%- if template == 'customers/addresses' -%}
+			<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+			<script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
+		{%- endif -%}
+
+		<script type="lazyload2" data-src="{{ 'libs.min.js' | asset_url }}"></script>
+		<script type="lazyload2" data-src="{{ 'theme.js' | asset_url }}"></script>
+		<script type="lazyload2" data-src="{{ 'custom.js' | asset_url }}"></script>
+		<script>
+			['unload', 'beforeunload'].forEach(function (eventName) {
+				window.addEventListener(eventName, function () {
+				// debugger;
+				});
+			});
+		</script>
+		{% if template contains 'product' %}
+		{% else %}
+			<!-- <script type="lazyload2" data-src="{{ 'kik-jeric-custom.js' | asset_url }}"></script> -->
+		{% endif %}
+		<script>
+			(function () {
+				window.onpageshow = function() {
+					if (window.theme.showPageTransition) {
+						var pageTransition = document.querySelector('.PageTransition');
+
+						if (pageTransition) {
+						pageTransition.style.visibility = 'visible';
+						pageTransition.style.opacity = '0';
+						}
+					}
+
+					// When the page is loaded from the cache, we have to reload the cart content
+					document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+					bubbles: true
+					}));
+				};
+			})();
+		</script>
+
+		{% render 'microdata-schema' %}
+		{% render 'qikify-apps' %}
+		{% render "geo" %}{% capture boostersnippet %}{% include "booster-apps-common" %}{% endcapture %}{% unless boostersnippet contains "Liquid error" %}{{ boostersnippet }}{% endunless %}
+		<!-- added by James LOGO start -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"url": "https://www.prexhobby.com",
+			"logo": "https://cdn.shopify.com/s/files/1/0529/4712/4404/files/2023-01-18_23.18.12_170x.png?v=1674112843"
+		}
+		</script>
+		{% if page.title == "About Us"  %}
+		<script type="application/ld+json">
+		{
+		"@context": "https://schema.org",
+		"@type": "AboutPage",
+		"mainEntity": {
+			"@type": "ItemList",
+			"url": "https://www.prexhobby.com/pages/about-us",
+			"itemListElement": [
+			{
+				"@type": "Article",
+				"position": 1,
+				"name": "Our Story",
+				"headline": "Our Story",
+				"description": "We are a group of software engineers living in Vancouver. During the pandemic, anime and related hobby products brought joy and comfort to us and our community. However, it can be challenging to purchase authentic products online before the related anime becomes less popular. So we decided to build an anime hobby store to help fans like ourselves."
+			},
+			{
+				"@type": "Article",
+				"position": 2,
+				"name": "Our Mission",
+				"headline": "Our Mission",
+				"description": "Our mission is to help fans across Canada and the US in purchasing authentic merchandise of their favourite animes in a timely manner and making friends with similar interests."
+			},
+			{
+				"@type": "Article",
+				"position": 2,
+				"name": "What makes us different",
+				"headline": "Recognized by Anime Origins",
+				"description": "We're not just another hobby store. At P-Rex, our passion for anime runs deep. We're honored to be recognized by anime origins, a testament to our commitment to celebrating and promoting the rich culture and artistry of anime. It's this dedication that drives us to provide you with the best and most genuine anime merchandise.
+		Visit our anime origins page https://www.prexhobby.com/collections/origin-list where you can find every animes you like! "
+			},
+			{
+				"@type": "Article",
+				"position": 2,
+				"name": "What makes us different",
+				"headline": "Largest SKU as an Online Hobby Store",
+				"description": "Size matters when it comes to selection, and P-Rex delivers. We boast the largest SKU in Canada as an online hobby store. That means you have access to an unparalleled range of products at your fingertips. Whether you're a fan of mainstream series or niche gems, you'll find exactly what you're looking for in our extensive catalog."
+			},
+			{
+				"@type": "Article",
+				"position": 2,
+				"name": "100% Authentic Products",
+				"headline": "Our Mission",
+				"description": "We believe that every fan deserves nothing but the best. That's why every product you find at P-Rex is guaranteed to be authentic. We work directly with manufacturers and trusted distributors to ensure that every item we sell meets our high standards for authenticity and quality. When you shop with us, you can do so with the confidence that you're getting the real deal."
+			}
+			]
+		}
+		}
+		</script>
+		{%  endif %}
+		{% if page.title == "Contact Us" or page.title == "Submit A Request" %}
+		<script type="application/ld+json">
+		{
+		"@context": "https://schema.org",
+		"@type": "ContactPage",
+		"mainEntity": {
+			"@type": "Organization",
+			"name": "P-REX Anime Hobby Store",
+			"url": "https://www.prexhobby.com",
+			"openingHours": "Mo,Tu,We,Th,Fr,Sa 10:00-17:00",
+			"logo": "https://cdn.shopify.com/s/files/1/0529/4712/4404/files/2023-01-18_23.18.12_170x.png?v=1674112843",
+			"description": "Welcome to P-Rex, your premier destination for all things anime! Based in Vancouver, Canada, we're proud to serve fans across the country and the U.S., helping you bring your dreams to life with our extensive range of authentic merchandise.",
+			"sameAs": [
+			"https://www.facebook.com/prexhobby",
+			"https://www.instagram.com/prex_hobby",
+			"https://www.youtube.com/@PrexHobby",
+			"https://www.tiktok.com/@prexhobby"
+			],
+			"contactPoint": [
+			{
+				"@type": "ContactPoint",
+				"telephone": "+1-604-418-0906",
+				"email": "mailto:customer@prexhobby.com",
+				"contactType": "customer service",
+				"areaServed": ["US","Canada"],
+				"availableLanguage": ["English","Chinese"]
+			}
+			],
+			"address": {
+			"@type": "PostalAddress",
+			"streetAddress": "8700 McKim Way Unit 1193",
+			"addressLocality": "Richmond",
+			"addressRegion": "British Columbia",
+			"postalCode": "V6X 2H8",
+			"addressCountry": "Canada"
+			},
+			"areaServed": {
+					"@type": "GeoCircle",
+					"geoMidpoint": {
+						"@type": "GeoCoordinates",
+						"latitude": 49.183350,
+						"longitude": -123.126500
+					},
+					"geoRadius": 1000
+			}
+		}
+		}
+		</script>
+		{% endif %}
+
+		<!-- added by James LOGO end -->
+		<!-- added by James google verfication page start -->
+		<meta name="google-site-verification" content="3WYw3XeK7xGUM8nRbN26FprHprgbn1yHJ5pQpcalsGc" />
+		<!-- added by James google verfication page end -->
+  <!-- Hotjar Tracking Code for https://www.prexhobby.com/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3633175,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+	</head>
+
+	{%- capture classes -%}features--heading-{{ settings.heading_size }}{%- endcapture -%}
+
+	{%- if settings.uppercase_heading -%}
+		{%- assign classes = classes | append: ' features--heading-uppercase' -%}
+	{%- endif -%}
+
+	{%- if settings.product_show_price_on_hover -%}
+		{%- assign classes = classes | append: ' features--show-price-on-hover' -%}
+	{%- endif -%}
+
+	{%- if settings.show_page_transition -%}
+		{%- assign classes = classes | append: ' features--show-page-transition' -%}
+	{%- endif -%}
+
+	{%- if settings.show_button_transition -%}
+		{%- assign classes = classes | append: ' features--show-button-transition' -%}
+	{%- endif -%}
+
+	{%- if settings.show_image_zooming -%}
+		{%- assign classes = classes | append: ' features--show-image-zooming' -%}
+	{%- endif -%}
+
+	{%- if settings.show_element_staggering -%}
+		{%- assign classes = classes | append: ' features--show-element-staggering' -%}
+	{%- endif -%}
+
+{% capture code %}
+  {%- render 'querystring', param: "code" -%}
+  {% endcapture %}
+
+
+
+
+
+  <body class="1 {{ page_title | handle }} {{ template.name }}  akmkm prestige--v4 {{ classes }} {% if template.directory %}template-{{ template.directory | handle }}{% endif %} template-{{ template.name | handle }}">
+
+      {% if page_title == 'Buy Gundam Model Kits Online - Prex Hobby' %}
+        <div id="preloadernew" class="preloadernew" style=" position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 23232323232323223;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;">
+                <img src="https://cdn.shopify.com/s/files/1/0529/4712/4404/t/94/assets/Dual%20Ring-1s-200px.gif" />
+        </div>
+      {% endif %}
+
+
+  {% if code contains "yes" %}
+   <div id="preloadernew" class="preloadernew" style=" position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 23232323232323223;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;">
+                <img src="https://cdn.shopify.com/s/files/1/0529/4712/4404/t/94/assets/Dual%20Ring-1s-200px.gif" />
+        </div>
+  {% endif %}
+
+      {%- comment -%}Common SVG definitions that we are re-using in several places{%- endcomment -%}
+		<svg class="u-visually-hidden">
+		<linearGradient id="rating-star-gradient-half">
+			<stop offset="50%" stop-color="var(--product-star-rating)" >
+			<stop offset="50%" stop-color="var(--text-color-light)" >
+		</linearGradient>
+		</svg>
+
+		<a class="PageSkipLink u-visually-hidden" href="#main">{{ 'header.navigation.skip_to_content' | t }}</a>
+		<span class="LoadingBar"></span>
+		<div class="PageOverlay"></div>
+
+		{%- if settings.show_page_transition -%}
+		<div class="PageTransition"></div>
+		{%- endif -%}
+
+		{% section 'popup' %}
+		{% section 'sidebar-menu' %}
+
+		{%- if template != 'cart' -%}
+		{% render 'cart-drawer' %}
+		{%- endif -%}
+
+
+
+
+		<div class="PageContainer kmkm ">
+		{% section 'announcement' %}
+		{% section 'header' %}
+
+		<main id="main" role="main">
+			<div class="" id="rightMenu"></div>
+			{{ content_for_layout }}
+		</main>
+		{% section 'footer' %}
+		</div>
+
+		{% include 'social-head-common' %}
+		{% render 'spurit_po2_theme_snippet' %}
+		{% include 'smile-initializer' %}
+		{% include 'swymSnippet' %}
+		<script type="lazyload2" data-src="//collections-add-to-cart.incubate.dev/js/core/main.min.js?timestamp=1686019595&shop=aot-supply.myshopify.com"></script>
+		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1602115490265766&ev=PageView&noscript=1"></noscript>
+        
+        {% render 'pe-disco-countdown-timer' %}
+
+                      <script>var _0x4c7509=_0x30c9;(function(_0x495c26,_0x1f4a59){var _0x2d30a8=_0x30c9,_0x55c6b7=_0x495c26();while(!![]){try{var _0x1c59d7=parseInt(_0x2d30a8(0x1db))/0x1*(-parseInt(_0x2d30a8(0x207))/0x2)+parseInt(_0x2d30a8(0x1f2))/0x3+parseInt(_0x2d30a8(0x1ba))/0x4*(-parseInt(_0x2d30a8(0x206))/0x5)+parseInt(_0x2d30a8(0x204))/0x6+parseInt(_0x2d30a8(0x209))/0x7+parseInt(_0x2d30a8(0x1d4))/0x8*(parseInt(_0x2d30a8(0x1c4))/0x9)+-parseInt(_0x2d30a8(0x1e4))/0xa;if(_0x1c59d7===_0x1f4a59)break;else _0x55c6b7['push'](_0x55c6b7['shift']());}catch(_0x148137){_0x55c6b7['push'](_0x55c6b7['shift']());}}}(_0x3cbb,0x62cfd));var src,srcset,ks_windowWidth,ks_windowHeight,critical2,cls_css,lazyBackground,lazyIframe,lazybg,s,i,flag=0x1,external_single_loaded=0x1;document[_0x4c7509(0x205)](_0x4c7509(0x1c2),function(){var _0x534fd2=_0x4c7509;ks_windowWidth=screen[_0x534fd2(0x1c1)],ks_windowHeight=screen[_0x534fd2(0x1bc)],lazyLoadImg2(),lazyLoadBackground2(),window['addEventListener'](_0x534fd2(0x1e2),function(){ks_init();}),window[_0x534fd2(0x205)](_0x534fd2(0x1cf),function(){ks_init();});if(navigator[_0x534fd2(0x210)]!=_0x534fd2(0x1d0))ks_init();window[_0x534fd2(0x205)](_0x534fd2(0x1c5),function(){ks_init();});});function ks_init(){var _0x5b9645=_0x4c7509;cls_css=document[_0x5b9645(0x1fb)](_0x5b9645(0x1d8)),cls_css[_0x5b9645(0x20e)](function(_0x2c38b2){var _0x6681ed=_0x5b9645;_0x2c38b2[_0x6681ed(0x1ff)]();}),lazyLoadCss(),lazyLoadStyle(),lazyLoadImg(),lazyLoadBackground(),lazyLoadPoster(),lazyLoadVideo(),lazyLoadIframe(),flag&&(flag=0x0,load_all_js());}function insertAfter(_0x238f99,_0x139790){var _0x5d470b=_0x4c7509;_0x139790[_0x5d470b(0x1e0)][_0x5d470b(0x1ca)](_0x238f99,_0x139790['nextSibling']);}function lazyLoadImg(){var _0x15c6f6=_0x4c7509,_0x447eaa=document[_0x15c6f6(0x1fb)](_0x15c6f6(0x1d5));for(i=0x0;i<_0x447eaa[_0x15c6f6(0x1cb)];i++){ks_windowWidth<0x258?src=_0x447eaa[i][_0x15c6f6(0x1de)]['mobsrc']===undefined?_0x447eaa[i][_0x15c6f6(0x1de)]['src']:_0x447eaa[i]['dataset'][_0x15c6f6(0x1ea)]:src=_0x447eaa[i][_0x15c6f6(0x1de)][_0x15c6f6(0x1c8)]===undefined?_0x447eaa[i][_0x15c6f6(0x1c8)]:_0x447eaa[i][_0x15c6f6(0x1de)][_0x15c6f6(0x1c8)],srcset=_0x447eaa[i][_0x15c6f6(0x20f)]('data-srcset')?_0x447eaa[i]['getAttribute']('data-srcset'):'',src!=null&&src!=''&&(_0x447eaa[i][_0x15c6f6(0x1c8)]=src),srcset!=null&&srcset!=''&&(_0x447eaa[i][_0x15c6f6(0x1be)]=srcset),_0x447eaa[i][_0x15c6f6(0x1f6)][_0x15c6f6(0x1ff)](_0x15c6f6(0x1f9));}}function _0x3cbb(){var _0x3702fe=['1577268vUoFDg','link[data-href]','BOOMR','/cart','classList','lazybg','dispatchEvent','lazy2','href','querySelectorAll','type','log','ks_loaded','remove','link','nodeValue','ks_load','initEvent','3848202qFBMsS','addEventListener','40Pvnswj','426574ToieOZ','value','3254937LBfLZl','video[data-poster]','style','indexOf','.critical2','forEach','getAttribute','platform','.analytics','data-type','poster','Event','9956bMplpp','attributes','height','.lazybg','srcset','style[type=lazyload2]','video','width','DOMContentLoaded','designMode','1557HjGKdN','touchstart','data-srcset','location','src','play','insertBefore','length','mobstyle','/checkout','setAttribute','mousemove','Linux\x20x86_64','.boomerang','script[type=lazyload2]','DOMContentLoaded2','5048ZilNKw','img.lazy2','data-href','top','.cls_css','load','script','3sZWaQs','No-optimization','Yes-optimization','dataset','mute','parentNode','nodeName','scroll','createElement','6767710yaQvze','removeChild','version','getBoundingClientRect','iframe','createEvent','mobsrc','rel','innerHTML','document','data-src','add','stylesheet','name'];_0x3cbb=function(){return _0x3702fe;};return _0x3cbb();}function lazyLoadImg2(){var _0x2c6a39=_0x4c7509,_0x2ab046=document[_0x2c6a39(0x1fb)](_0x2c6a39(0x1d5));for(i=0x0;i<_0x2ab046[_0x2c6a39(0x1cb)];i++){var _0x2d1fec=_0x2ab046[i]['getBoundingClientRect']();_0x2d1fec[_0x2c6a39(0x1d7)]!=0x0&&_0x2d1fec[_0x2c6a39(0x1d7)]-ks_windowHeight<0xc8&&(ks_windowWidth<0x258?src=_0x2ab046[i][_0x2c6a39(0x1de)][_0x2c6a39(0x1ea)]===undefined?_0x2ab046[i][_0x2c6a39(0x1de)][_0x2c6a39(0x1c8)]:_0x2ab046[i][_0x2c6a39(0x1de)][_0x2c6a39(0x1ea)]:src=_0x2ab046[i]['dataset'][_0x2c6a39(0x1c8)]===undefined?_0x2ab046[i]['src']:_0x2ab046[i][_0x2c6a39(0x1de)][_0x2c6a39(0x1c8)],srcset=_0x2ab046[i][_0x2c6a39(0x20f)](_0x2c6a39(0x1c6))?_0x2ab046[i]['getAttribute']('data-srcset'):'',src!=null&&src!=''&&(_0x2ab046[i][_0x2c6a39(0x1c8)]=src),srcset!=null&&srcset!=''&&(_0x2ab046[i][_0x2c6a39(0x1be)]=srcset),_0x2ab046[i]['classList'][_0x2c6a39(0x1ff)](_0x2c6a39(0x1f9)));}}function _0x30c9(_0x5cf9bc,_0x29f752){var _0x3cbb3e=_0x3cbb();return _0x30c9=function(_0x30c960,_0x46609e){_0x30c960=_0x30c960-0x1ba;var _0x59daa9=_0x3cbb3e[_0x30c960];return _0x59daa9;},_0x30c9(_0x5cf9bc,_0x29f752);}function lazyLoadBackground(){var _0x432170=_0x4c7509;lazyBackground=document[_0x432170(0x1fb)](_0x432170(0x1bd)),lazyBackground['forEach'](function(_0x529fb2){var _0x39d703=_0x432170;ks_windowWidth<0x258?lazybg=_0x529fb2['dataset'][_0x39d703(0x1cc)]===undefined?_0x529fb2[_0x39d703(0x1de)][_0x39d703(0x20b)]:_0x529fb2[_0x39d703(0x1de)]['mobstyle']:lazybg=_0x529fb2[_0x39d703(0x1de)][_0x39d703(0x20b)]===undefined?_0x529fb2[_0x39d703(0x20b)]:_0x529fb2[_0x39d703(0x1de)][_0x39d703(0x20b)],lazybg!=null&&lazybg!=''&&(_0x529fb2[_0x39d703(0x20b)]=lazybg),_0x529fb2[_0x39d703(0x1f6)][_0x39d703(0x1ff)]('lazybg');});}function lazyLoadBackground2(){var _0xdcf514=_0x4c7509;lazyBackground=document[_0xdcf514(0x1fb)]('.lazybg'),lazyBackground[_0xdcf514(0x20e)](function(_0x19b1c9){var _0x313517=_0xdcf514,_0x9b1709=_0x19b1c9[_0x313517(0x1e7)]();_0x9b1709[_0x313517(0x1d7)]!=0x0&&_0x9b1709[_0x313517(0x1d7)]-ks_windowHeight<0xc8&&(ks_windowWidth<0x258?lazybg=_0x19b1c9[_0x313517(0x1de)][_0x313517(0x1cc)]===undefined?_0x19b1c9[_0x313517(0x1de)]['style']:_0x19b1c9[_0x313517(0x1de)][_0x313517(0x1cc)]:lazybg=_0x19b1c9[_0x313517(0x1de)][_0x313517(0x20b)]===undefined?_0x19b1c9['style']:_0x19b1c9[_0x313517(0x1de)][_0x313517(0x20b)],lazybg!=null&&lazybg!=''&&(_0x19b1c9[_0x313517(0x20b)]=lazybg),_0x19b1c9[_0x313517(0x1f6)][_0x313517(0x1ff)](_0x313517(0x1f7)));});}function lazyLoadCss(){var _0x38c874=_0x4c7509,_0x156f15=document[_0x38c874(0x1fb)](_0x38c874(0x1f3));for(i=0x0;i<_0x156f15[_0x38c874(0x1cb)];i++){var _0x5905ea=document[_0x38c874(0x1e3)](_0x38c874(0x200));_0x5905ea['href']=_0x156f15[i][_0x38c874(0x20f)](_0x38c874(0x1d6)),_0x5905ea[_0x38c874(0x1eb)]=_0x38c874(0x1f0),_0x156f15[i][_0x38c874(0x1e0)][_0x38c874(0x1ca)](_0x5905ea,_0x156f15[i]),delete _0x156f15[i][_0x38c874(0x1de)][_0x38c874(0x1fa)],_0x156f15[i][_0x38c874(0x1e0)][_0x38c874(0x1e5)](_0x156f15[i]);}}function lazyLoadStyle(){var _0x973a61=_0x4c7509,_0x4cbafa=document['querySelectorAll'](_0x973a61(0x1bf));for(i=0x0;i<_0x4cbafa[_0x973a61(0x1cb)];i++){var _0x55469f=document[_0x973a61(0x1e3)](_0x973a61(0x20b));_0x55469f[_0x973a61(0x1ec)]=_0x4cbafa[i][_0x973a61(0x1ec)],_0x4cbafa[i]['parentNode'][_0x973a61(0x1ca)](_0x55469f,_0x4cbafa[i]),_0x4cbafa[i][_0x973a61(0x1e0)][_0x973a61(0x1e5)](_0x4cbafa[i]);}}function lazyLoadPoster(){var _0x5180cd=_0x4c7509;lazyPoster=document[_0x5180cd(0x1fb)](_0x5180cd(0x20a)),lazyPoster[_0x5180cd(0x20e)](function(_0xd3123c){var _0x6ab08c=_0x5180cd;_0xd3123c['dataset'][_0x6ab08c(0x213)]!=null&&_0xd3123c['dataset']['poster']!=''&&(_0xd3123c[_0x6ab08c(0x213)]=_0xd3123c[_0x6ab08c(0x1de)]['poster'],delete _0xd3123c[_0x6ab08c(0x1de)]['poster']);});}function lazyLoadVideo(){var _0xbdd09c=_0x4c7509;lazyVideo=document[_0xbdd09c(0x1fb)](_0xbdd09c(0x1c0)),lazyVideo[_0xbdd09c(0x20e)](function(_0xd00344){var _0x1558d5=_0xbdd09c;_0xd00344['dataset'][_0x1558d5(0x1c8)]!=null&&_0xd00344[_0x1558d5(0x1de)]['src']!=''&&(_0xd00344[_0x1558d5(0x1c8)]=_0xd00344[_0x1558d5(0x1de)][_0x1558d5(0x1c8)],_0xd00344[_0x1558d5(0x1d9)](),_0xd00344[_0x1558d5(0x1df)]=!![],_0xd00344[_0x1558d5(0x1c9)](),delete _0xd00344[_0x1558d5(0x1de)]['src']);});}function lazyLoadIframe(){var _0x3584d4=_0x4c7509;lazyIframe=document[_0x3584d4(0x1fb)](_0x3584d4(0x1e8)),lazyIframe['forEach'](function(_0xae7dbb){var _0x5840a9=_0x3584d4;_0xae7dbb[_0x5840a9(0x1de)][_0x5840a9(0x1c8)]!=null&&_0xae7dbb['dataset'][_0x5840a9(0x1c8)]!=''&&(_0xae7dbb[_0x5840a9(0x1c8)]=_0xae7dbb[_0x5840a9(0x1de)][_0x5840a9(0x1c8)],delete _0xae7dbb[_0x5840a9(0x1de)][_0x5840a9(0x1c8)]);});}function w3_load_js_uri(_0x3cef5a){var _0x254528=_0x4c7509,_0x319c85=document[_0x254528(0x1e3)](_0x254528(0x1da));if(typeof _0x3cef5a[_0x254528(0x1bb)]!='undefined')for(var _0x274327,_0x3b9dad=0x0,_0x12896e=_0x3cef5a[_0x254528(0x1bb)],_0x12cbd9=_0x12896e[_0x254528(0x1cb)];_0x3b9dad<_0x12cbd9;_0x3b9dad++){_0x274327=_0x12896e[_0x3b9dad],_0x274327[_0x254528(0x1e1)]==_0x254528(0x212)&&_0x319c85[_0x254528(0x1ce)](_0x254528(0x1fc),_0x274327[_0x254528(0x201)]),_0x274327[_0x254528(0x1e1)]!='data-src'&&_0x274327[_0x254528(0x1e1)]!=_0x254528(0x1fc)&&_0x319c85['setAttribute'](_0x274327[_0x254528(0x1e1)],_0x274327[_0x254528(0x201)]);}return _0x319c85[_0x254528(0x1c8)]=_0x3cef5a[_0x254528(0x20f)](_0x254528(0x1ee)),insertAfter(_0x319c85,_0x3cef5a),delete _0x3cef5a[_0x254528(0x1de)][_0x254528(0x1c8)],delete _0x3cef5a[_0x254528(0x1fc)],_0x3cef5a[_0x254528(0x1e0)][_0x254528(0x1e5)](_0x3cef5a),_0x319c85;}function w3_load_inline_js_single(_0x409ba2){var _0x382f16=_0x4c7509;if(!external_single_loaded)return setTimeout(function(){w3_load_inline_js_single(_0x409ba2);},0xc8),![];s=document[_0x382f16(0x1e3)](_0x382f16(0x1da));for(var _0x504065=0x0;_0x504065<_0x409ba2[_0x382f16(0x1bb)][_0x382f16(0x1cb)];_0x504065++){var _0x209f49=_0x409ba2[_0x382f16(0x1bb)][_0x504065];_0x209f49[_0x382f16(0x1f1)]==_0x382f16(0x212)&&s[_0x382f16(0x1ce)](_0x382f16(0x1fc),_0x209f49[_0x382f16(0x208)]),_0x209f49['name']!=_0x382f16(0x1fc)&&s[_0x382f16(0x1ce)](_0x209f49['name'],_0x209f49['value']);}s[_0x382f16(0x1ec)]=_0x409ba2[_0x382f16(0x1ec)],insertAfter(s,_0x409ba2),_0x409ba2['parentNode']['removeChild'](_0x409ba2);}function lazyLoadScripts(){var _0x4b1f42=_0x4c7509,_0x116819=document[_0x4b1f42(0x1fb)](_0x4b1f42(0x1d2));if(_0x116819[_0x4b1f42(0x1cb)]<0x1){document['body'][_0x4b1f42(0x1f6)][_0x4b1f42(0x1ef)](_0x4b1f42(0x1fe)),fullJSLoadedCB();return;}if(_0x116819[0x0][_0x4b1f42(0x20f)](_0x4b1f42(0x1ee))!==null){var _0x4bce2d=w3_load_js_uri(_0x116819[0x0]);_0x4bce2d['onload']=function(){lazyLoadScripts();},_0x4bce2d['onerror']=function(){lazyLoadScripts();};}else w3_load_inline_js_single(_0x116819[0x0]),lazyLoadScripts();}function ksAnalytics(){var _0x2eb1f9=_0x4c7509,_0x2a8fb4=document[_0x2eb1f9(0x1fb)](_0x2eb1f9(0x211));_0x2a8fb4[_0x2eb1f9(0x20e)](function(_0x399ffa){var _0x429141=_0x2eb1f9;trekkie['integrations']=![],s=document[_0x429141(0x1e3)](_0x429141(0x1da)),s[_0x429141(0x1ec)]=_0x399ffa[_0x429141(0x1ec)],insertAfter(s,_0x399ffa),_0x399ffa['parentNode'][_0x429141(0x1e5)](_0x399ffa);});}function ksBoomerang(){var _0x340f60=_0x4c7509,_0x575a5d=document[_0x340f60(0x1fb)](_0x340f60(0x1d1));_0x575a5d['forEach'](function(_0x5bc8cf){var _0x4617fe=_0x340f60;window[_0x4617fe(0x1f4)][_0x4617fe(0x1e6)]=![],s=document[_0x4617fe(0x1e3)]('script'),s[_0x4617fe(0x1ec)]=_0x5bc8cf[_0x4617fe(0x1ec)],insertAfter(s,_0x5bc8cf),_0x5bc8cf[_0x4617fe(0x1e0)][_0x4617fe(0x1e5)](_0x5bc8cf);});}function load_all_js(){var _0x3fac9b=_0x4c7509;Shopify[_0x3fac9b(0x1c3)]||window['location']['href'][_0x3fac9b(0x20c)](_0x3fac9b(0x1f5))>-0x1||window[_0x3fac9b(0x1c7)][_0x3fac9b(0x1fa)][_0x3fac9b(0x20c)](_0x3fac9b(0x1cd))>-0x1?console['log'](_0x3fac9b(0x1dc)):(console[_0x3fac9b(0x1fd)](_0x3fac9b(0x1dd)),setTimeout(function(){var _0x15960f=_0x3fac9b,_0x55b092=document[_0x15960f(0x1e9)](_0x15960f(0x214));_0x55b092[_0x15960f(0x203)](_0x15960f(0x202),!![],!![]),window[_0x15960f(0x1ed)][_0x15960f(0x1f8)](_0x55b092);},0x1f4),setTimeout(function(){var _0x50ce85=_0x3fac9b,_0x5cbb66=document[_0x50ce85(0x1e9)](_0x50ce85(0x214));_0x5cbb66[_0x50ce85(0x203)](_0x50ce85(0x1d3),!![],!![]),window[_0x50ce85(0x1ed)]['dispatchEvent'](_0x5cbb66);},0x1388)),lazyLoadScripts(),setTimeout(function(){var _0x688764=_0x3fac9b;critical2=document[_0x688764(0x1fb)](_0x688764(0x20d)),critical2[_0x688764(0x20e)](function(_0x4c182){var _0x4a63b5=_0x688764;_0x4c182[_0x4a63b5(0x1ff)]();});},0x1f40),setInterval(function(){lazyLoadImg(),lazyLoadIframe();});}function fullJSLoadedCB(){setTimeout(function(){});}</script>
+
+            
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<form action="/cart/add" method="post" class="variants" id="product-actions-{{ product.id }}" enctype="multipart/form-data">
+<input type="hidden" name="variantId" value="{{ product.variants[0].id }}" />
+<input type="hidden" name="return_to" value="/checkout/" />
+<button class="button buynow-btn" title="Buy" onClick="instantBuy()"><span>Buy now</span></button>
+</form>
+<style>
+button.button.buynow-btn {
+    width: 100%;
+    background: black;
+    color: white;
+    text-transform: capitalize;
+    padding: 8px 0;
+    margin-top:10px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script>
+function instantBuy(){
+     var $ = jQuery;
+
+   var formParams = $('form.cart').serialize();
+     $.ajax({
+      url: "/cart/add",
+      type: "post",
+      data: formParams,
+      success: function(){
+      
+      },
+      error: function(){
+      }
+     })
+ }
+</script>

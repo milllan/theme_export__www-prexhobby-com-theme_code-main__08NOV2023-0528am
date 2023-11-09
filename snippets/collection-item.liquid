@@ -1,0 +1,85 @@
+{% liquid
+  assign use_second_template = section.settings.use_second_template
+%}
+
+{%- assign collection_image = block.settings.image | default: collection.image | default: collection.products.first.featured_image -%}
+
+<a href="{{ block.settings.button_link | default: collection.url }}" {{ block.shopify_attributes }} class="CollectionItem {% if section.settings.expand_collection %}CollectionItem--expand{% endif %} Carousel__Cell {% if forloop.first %}is-selected{% endif %}" data-slide-index="{{ forloop.index0 }}">
+  {%- capture mobile_size -%}750x{% if collection_image.height >= 960 %}960{% else %}{{ collection_image.height }}{% endif %}{%- endcapture -%}
+  {%- assign image_crop = block.settings.image_alignment | split: ' ' | last -%}
+
+  <div class="CollectionItem__Wrapper-custom" {% if collection_image %}style="background-image: url({{ collection_image | img_url: '1x1' }})"{% endif %}>
+    <div class="CollectionItem__ImageWrapper">
+      <div class="image-ratio__container">
+        <div class="image-ratio">
+          {% liquid
+            assign image = collection_image
+            assign image_height = image.width | divided_by: image.aspect_ratio
+
+            assign columns_desktop = section.settings.column_desktop
+            assign columns_tablet = section.settings.columns_tablet
+            assign columns_mobile = section.settings.columns_mobile
+
+            assign page_width = 1500
+          %}
+
+          {%- capture sizes -%}
+            (min-width: {{ page_width }}px) {{ page_width | divided_by: columns_desktop }}px,
+            ((min-width: 990px) and (max-width: {{ page_width | minus: 1 }}px)) calc(114vw / {{ columns_desktop }}),
+            ((min-width: 750px) and (max-width: 989px)) calc(114vw / {{ columns_tablet }}),
+            calc(114vw / {{ columns_mobile }} )
+          {%- endcapture -%}
+
+
+          {{ image | image_url: width: 240 | image_tag:
+          loading: 'lazy',
+          width: image.width,
+          height: image_height,
+          draggable: 'false',
+          widths: '130, 240',
+          alt: image.alt | escape }}
+        </div>
+      </div>
+          
+    </div>
+
+    {%- unless use_second_template -%}
+      <div class="CollectionItem__Content CollectionItem__Content--{{ block.settings.content_position | default: 'bottomLeft' }}">
+        <header class="SectionHeader">
+          {%- if block.settings.subheading != blank -%}
+            <h3 class="SectionHeader__SubHeading Heading u-h6">{{ block.settings.subheading | escape }}</h3>
+          {%- endif -%}
+
+          <h2 class="SectionHeader__Heading SectionHeader__Heading--emphasize Heading u-h1">{{ block.settings.title | default: collection.title | escape }}</h2>
+
+          <div class="SectionHeader__ButtonWrapper">
+            {%- if block.settings.button_text != blank -%}
+              <span class="CollectionItem__Link Button">{{ block.settings.button_text | escape }}</span>
+            {%- else -%}
+              <span class="CollectionItem__Link Button">{{ 'collection.general.view_products' | t }}</span>
+            {%- endif -%}
+          </div>
+        </header>
+      </div>
+    {%- endunless -%}
+  </div>
+  {%- if use_second_template -%}
+  <div class="CollectionItem__Content CollectionItem__Content--secondtemplate">
+    <header class="SectionHeader">
+      {%- if block.settings.subheading != blank -%}
+        <h3 class="SectionHeader__SubHeading Heading u-h7">{{ block.settings.subheading | escape }}</h3>
+      {%- endif -%}
+
+      <h2 class="SectionHeader__Heading Heading u-h7">{{ block.settings.title | default: collection.title | escape }}</h2>
+
+      <div class="SectionHeader__ButtonWrapper">
+        {%- if block.settings.button_text != blank -%}
+          <span class="CollectionItem__Link">{{ block.settings.button_text | escape | handleize | replace: '-', ' ' }}</span>
+        {%- else -%}
+          <span class="CollectionItem__Link">{{ 'collection.general.view_products' | t | handleize | replace: '-', ' ' }}</span>
+        {%- endif -%}
+      </div>
+    </header>
+  </div>
+  {%- endif -%}
+</a>

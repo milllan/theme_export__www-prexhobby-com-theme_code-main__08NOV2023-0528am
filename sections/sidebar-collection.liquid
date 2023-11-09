@@ -1,0 +1,210 @@
+{%- liquid
+    assign collection_list = section.settings.collection_list
+    assign paginate_by = section.settings.items_per_page
+-%}
+<section id="sidebarCollection" style="display:none;">
+    <aside class="sub-content_position_right">
+         {% comment %}
+        <div class="sidebar-video">
+            <div class="VideoWrapper">
+                {% if section.settings.video_url.type == 'youtube' %}
+                  <iframe class="Image--lazyLoad" data-src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&showinfo=0&controls=1&rel=0&modestbranding=1" frameborder="0" allowfullscreen></iframe>
+                {% elsif section.settings.video_url.type == 'vimeo' %}
+                  <iframe class="Image--lazyLoad" data-src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&portrait=0&byline=0&color={{ settings.accent_color | remove_first: '#' }}" frameborder="0"></iframe>
+                {% endif %}
+            </div>
+        </div>
+         {% endcomment %}
+        <div class="sidebar-collection-list">
+            <div class="sidebar-collection-list__title">
+                <h3>{{ section.settings.title }}</h3>
+                <a href="{{ section.settings.see_more_url }}" class="btn btn-see_more">{{ section.settings.see_more_label }}</a>
+            </div>
+            {%- paginate collection_list by paginate_by -%}
+                <ul class="grid--view-items">
+                    {%- for collection in collection_list -%}
+                        <li class="sidebar-collection__item">
+                            <a href="{{ collection.url }}">
+                                <div class="sidebar-collection__img">
+                                    {% if collection.image %}
+                                        <img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=" data-src="{{ collection.image | img_url: '1120x1200' }}"
+                                             alt="{{ collection.title }}">
+                                    {% else %}
+                                        <img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAQAAABeK7cBAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=" data-src="{{ block.settings.image | img_url: '1120x1200' }}"
+                                             alt="{{ collection.title }}">
+                                    {% endif %}
+                                </div>
+                            </a>
+                        </li>
+                    {%- endfor -%}
+                    <div class="wgt-page-data">
+                        <input type="hidden" value="{{ paginate.next.url }}" data-next-url>
+                        <input type="hidden" value="{{ paginate.pages }}" data-total-pages>
+                        <input type="hidden" value="{{ paginate.current_page }}" data-current-page>
+                    </div>
+                </ul>
+                {% if paginate.pages != paginate.current_page %}
+                    <div class="load-more_wrap">
+                        <button class="btn Button--primary js-load-more">
+                            <span load-more-text>Load more</span>
+                            <div class="spinner hidden" loader></div>
+                        </button>
+                    </div>
+                {% endif %}
+                <div class="see-more_wrap {% if paginate.pages != paginate.current_page %}hidden{% endif %}">
+                    <a href="{{ section.settings.see_more_url }}" class="btn Button--primary">{{ section.settings.see_more_label }}</a>
+                </div>
+            {%- endpaginate -%}
+        </div>
+    </aside>
+</section>
+<script type="lazyload2">
+    $('.js-load-more').on('click', function () {
+        if ($('[data-next-url]').val() == '') {
+            return;
+        }
+        var $this = $(this), totalPages = parseInt($('[data-total-pages]').val()),
+            currentPage = parseInt($('[data-current-page]').val());
+
+        $this.attr('disabled', true);
+        $this.find('[load-more-text]').addClass('hidden');
+        $this.find('[loader]').removeClass('hidden');
+        var nextUrl = $('[data-next-url]').val().replace(/page=[0-9]+/, 'page=' + currentPage);
+        $('[data-current-page]').val(currentPage);
+
+        $.ajax({
+            url: nextUrl,
+            type: 'GET',
+            dataType: 'html',
+            success: function (responseHTML) {
+                $('.wgt-page-data').remove();
+                $('.grid--view-items').append($(responseHTML).find('.grid--view-items').html());
+            },
+            complete: function () {
+                if ((currentPage + 1) == totalPages) {
+                    $('.load-more_wrap').addClass('hidden');
+                    $('.see-more_wrap').removeClass('hidden');
+                    return;
+                }
+                if (currentPage <= totalPages) {
+                    $this.attr('disabled', false);
+                    $this.find('[load-more-text]').removeClass('hidden');
+                    $this.find('[loader]').addClass('hidden');
+                }
+            }
+        })
+    });
+</script>
+<style>
+    #sidebarCollection {
+        position: relative;
+        float: right;
+    }
+
+    .see-more_wrap, .load-more_wrap {
+        text-align: center;
+        padding-top: 20px;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .load-more_wrap .Button--primary {
+        color: #1c1b1b;
+        font-family: var(--heading-font-family);
+    }
+
+    .see-more_wrap .Button--primary {
+        color: #1c1b1b;
+        font-family: var(--heading-font-family);
+    }
+
+    .spinner {
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        box-sizing: border-box;
+        border: 5px solid transparent;
+        border-bottom: 5px solid #767676;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation: load 1.05s infinite linear;
+        animation: load 1.05s infinite linear;
+    }
+
+    @-webkit-keyframes load {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg)
+        }
+    }
+
+    @keyframes load {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg)
+        }
+    }
+</style>
+{% schema %}
+{
+  "name": "Sidebar Collection",
+  "class": "sidebar sidebar-right",
+  "settings": [
+    {
+      "type": "video_url",
+      "accept": [
+        "youtube",
+        "vimeo"
+      ],
+      "id": "video_url",
+      "label": "Video URL",
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Collection List Title",
+      "default": "Origin List"
+    },
+    {
+      "type": "text",
+      "id": "see_more_label",
+      "label": "Button see more items collection",
+      "default": "See more"
+    },
+    {
+      "type": "url",
+      "id": "see_more_url",
+      "label": "Collection see more"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "Collections",
+      "limit": 48
+    },
+    {
+      "type": "range",
+      "id": "items_per_page",
+      "min": 6,
+      "max": 48,
+      "step": 1,
+      "label": "Items per page",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sidebar Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,44 @@
+{% liquid
+    assign image = collection.image
+    assign image_height = image.width | divided_by: image.aspect_ratio
+
+    assign columns_desktop = section.settings.column_desktop
+    assign columns_tablet = section.settings.columns_tablet
+    assign columns_mobile = section.settings.columns_mobile
+
+    assign page_width = 1500
+%}
+<lazy-image>
+    <div class="collection-list-item-wrapper">
+        <a href="{{ collection.url }}" ></a>
+        <div class="collection-list-item-content">
+            <div class="image-ratio__container">
+                <div class="image-ratio">
+                    {%- capture sizes -%}
+                    (min-width: {{ page_width }}px) {{ page_width | divided_by: columns_desktop }}px,
+                    ((min-width: 990px) and (max-width: {{ page_width | minus: 1 }}px)) calc(114vw / {{ columns_desktop }}),
+                    ((min-width: 750px) and (max-width: 989px)) calc(114vw / {{ columns_tablet }}),
+                    calc(114vw / {{ columns_mobile }} )
+                    {%- endcapture -%}
+                    {{ image | image_url: width: 240 | image_tag:
+                    loading: 'lazy',
+                    width: image.width,
+                    height: image_height,
+                    draggable: 'false',
+                    widths: '130, 240',
+                    alt: image.alt | escape }}
+                </div>
+            </div>
+            <div class="collection-list-item__copy">
+                {% liquid
+                    assign collection_title_no_origin = collection.title | split: 'gin:' | last
+                    assign collection_title = collection_title_no_origin | split: '||' | first
+                %}
+                <h2 class="Heading u-h7">{{ collection_title | strip }}</h2>
+                {% comment %} <a href="{{ collection.url }}" >View All ({{ collection.all_products_count }})</a>         {% endcomment %}
+                <a class="u-h8" href="{{ collection.url }}" >View Products</a>
+            </div>
+        </div>
+    </div>
+
+</lazy-image>

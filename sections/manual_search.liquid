@@ -1,0 +1,464 @@
+
+
+  <div class="custom header" style="display:none;">
+      <div class="leftlogo">
+        <a href="/" class="Header__LogoLink">
+          <img class="Header__LogoImage Header__LogoImage--primary" src="//www.prexhobby.com/cdn/shop/files/2023-01-18_23.18.12_170x.png?v=1674112843" srcset="//www.prexhobby.com/cdn/shop/files/2023-01-18_23.18.12_170x.png?v=1674112843 1x, //www.prexhobby.com/cdn/shop/files/2023-01-18_23.18.12_170x@2x.png?v=1674112843 2x" width="420" height="237" alt="P-REX Hobby">
+        </a>
+      </div>
+       <div class="rightsearch">
+         <div id="Searchs" class="sSearch" aria-hidden="true">
+  <div class="Search__Inner">
+    <div class="Search__SearchBar">
+      <form action="{{ routes.search_url }}" name="GET" role="search" class="Search__Form">
+
+
+        <input type="search" class="Search__Input Heading" name="q" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="{{ 'search.general.input_placeholder' | t }}" placeholder="{{ 'search.general.input_placeholder' | t }}" autofocus>
+        <div class="hidden Search__InputIconWrapper">
+          <span class="hidden-tablet-and-up">{%- render 'icon' with 'search' -%}</span>
+          <span class="hidden-phone">{%- render 'icon' with 'search-desktop' -%}</span>
+        </div>
+        <input type="hidden" name="type" value="product">
+      </form>
+
+      <button class="hidden Search__Close Link Link--primary" data-action="close-search" aria-label="{{ 'header.navigation.close_search' | t }}">{% render 'icon' with 'close' %}</button>
+    </div>
+
+    <div class="Search__Results" aria-hidden="true">
+      {%- if settings.search_mode != 'product' -%}
+        <div class="PageLayout PageLayout--breakLap">
+          <div class="PageLayout__Section"></div>
+          <div class="PageLayout__Section PageLayout__Section--secondary"></div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+       </div>
+  </div>
+  <header class="PageHeader">
+    <div class="SectionHeader SectionHeader--center">
+      <h1 class="SectionHeader__Heading Heading u-h1 ">Gundam model kits instruction manual</h1>
+      <img  class="hidden" style="display:none; width: 60%;" src="https://cdn.shopify.com/s/files/1/0529/4712/4404/t/94/assets/logo_manual.png?v=1693937881" />
+    </div>
+  </header>
+  <div class="Container">
+
+
+  <div class="PageContent PageContent--narrow manual">
+    <div class="Rte">
+
+
+      <form action="/collections/gundam-model-kit"  method="get" class="Manual Form Form--spacingTight" role="search">
+          <div class="Form__Item">
+            <label class="Form__FloatingLabel">Filter by product name, product number</label>
+            <input type="text" id="searchquery" class="Form__Input" name="q">
+            <input type="hidden" class="is_manual" name="filter.p.m.custom.is_manual" value="YES"  >
+           </div>
+        <div class="Form__Item">
+            <label class="Form__FloatingLabel">Filter by release date</label>
+
+          <select name="filter.p.m.custom.release_date">
+            <option value="">Select Release Date</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+            <option value="2016">2016</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+            <option value="2012">2012</option>
+            <option value="2011">2011</option>
+            <option value="2010">2010</option>
+            <option value="2009">2009</option>
+            <option value="2008">2008</option>
+            <option value="2001">2001</option>
+            <option value="2000">2000</option>
+            <option value="1998">1998</option>
+            <option value="1997">1997</option>
+            </select>
+        </div>
+        <div class="Form__Item">
+            <label class="Form__FloatingLabel">Filter by Brand</label>
+            <select name="filter.p.m.custom.brand">
+              <option value="">Select Brand</option>
+                <option value="Gundam ENTRY GRADE">Gundam ENTRY GRADE</option>
+                <option value="Gundam Figure-rise Standard">Gundam Figure-rise Standard</option>
+                <option value="Gundam FULL MECHANICS">Gundam FULL MECHANICS</option>
+                <option value="Gundam HG">Gundam HG</option>
+                <option value="Gundam HGUC">Gundam HGUC</option>
+                <option value="Gundam MG">Gundam MG</option>
+                <option value="Gundam MGEX">Gundam MGEX</option>
+                <option value="Gundam MGSD">Gundam MGSD</option>
+                <option value="Gundam PG">Gundam PG</option>
+                <option value="Gundam RG">Gundam RG</option>
+                <option value="Gundam SDEX">Gundam SDEX</option>
+                <option value="Gundam SDEX">Gundam SDEX</option>
+                <option value="Gundam SDBD">Gundam SDBD</option>
+                <option value="Gundam SDBD">Gundam SDBF</option>
+                </select>
+        </div>
+        <div class="Form__Item">
+            <label class="Form__FloatingLabel">Filter by series</label>
+
+                <select name="filter.p.m.custom.manual_series">
+                        <option value="">Select Series</option>
+                        <option value="∀Gundam">∀Gundam</option>
+                        <option value="ADVANCE OF Z">ADVANCE OF Z</option>
+                        <option value="GUNDAM BREAKER BATTLOGUE">GUNDAM BREAKER BATTLOGUE</option>
+                        <option value="gundam build divers">gundam build divers</option>
+                        <option value="Gundam Build Divers Re:RISE">Gundam Build Divers Re:RISE</option>
+                        <option value="Gundam Build Fighters">Gundam Build Fighters</option>
+                        <option value="Gundam MSV">Gundam MSV</option>
+                        <option value="gundam sentinel">gundam sentinel</option>
+                        <option value="gunpla">gunpla</option>
+                        <option value="Mobile Fighter G Gundam">Mobile Fighter G Gundam</option>
+                        <option value="Mobile New Century Gundam X">Mobile New Century Gundam X</option>
+                        <option value="Mobile Suit Crossbone Gundam">Mobile Suit Crossbone Gundam</option>
+                        <option value="Mobile Suit Gundam">Mobile Suit Gundam</option>
+                        <option value="Mobile Suit Gundam 00">Mobile Suit Gundam 00</option>
+                        <option value="Mobile Suit Gundam 0080 War in the Pocket">Mobile Suit Gundam 0080 War in the Pocket</option>
+                        <option value="Mobile Suit Gundam 0083 STARDUST MEMORY">Mobile Suit Gundam 0083 STARDUST MEMORY</option>
+                        <option value="Mobile Suit Gundam 08th MS Platoon">Mobile Suit Gundam 08th MS Platoon</option>
+                        <option value="Mobile Suit Gundam AGE">Mobile Suit Gundam AGE</option>
+                        <option value="Mobile Suit Gundam Char%27s Counterattack">Mobile Suit Gundam Char's Counterattack</option>
+                        <option value="Mobile Suit Gundam F91">Mobile Suit Gundam F91</option>
+                        <option value="Mobile Suit Gundam Flash Hathaway">Mobile Suit Gundam Flash Hathaway</option>
+                        <option value="Mobile Suit Gundam Gaiden THE BLUE DESTINY">Mobile Suit Gundam Gaiden THE BLUE DESTINY</option>
+                        <option value="Mobile Suit Gundam Iron-Blooded Orphans">Mobile Suit Gundam Iron-Blooded Orphans</option>
+                        <option value="Mobile Suit Gundam MS IGLOO">Mobile Suit Gundam MS IGLOO</option>
+                        <option value="Mobile Suit Gundam NT (Narrative)">Mobile Suit Gundam NT (Narrative)</option>
+                        <option value="Mobile Suit Gundam SEED">Mobile Suit Gundam SEED</option>
+                        <option value="Mobile Suit Gundam SEED DESTINY">Mobile Suit Gundam SEED DESTINY</option>
+                        <option value="Mobile Suit Gundam THE ORIGIN">Mobile Suit Gundam THE ORIGIN</option>
+                        <option value="Mobile Suit Gundam Thunderbolt">Mobile Suit Gundam Thunderbolt</option>
+                        <option value="Mobile Suit Gundam UC">Mobile Suit Gundam UC</option>
+                        <option value="Mobile Suit Gundam Witch of Mercury">Mobile Suit Gundam Witch of Mercury</option>
+                        <option value="Mobile Suit Gundam ZZ">Mobile Suit Gundam ZZ</option>
+                        <option value="Mobile Suit MOON Gundam">Mobile Suit MOON Gundam</option>
+                        <option value="Mobile Suit V Gundam">Mobile Suit V Gundam</option>
+                        <option value="Mobile Suit Z Gundam">Mobile Suit Z Gundam</option>
+                        <option value="New Mobile Report Gundam W">New Mobile Report Gundam W</option>
+
+
+                </select>
+
+          <input type="hidden" class="Form__Input" name="code" value="yes" >
+        </div>
+
+              <button type="submit" class="Form__Submit Button Button--primary Button--full">Search</button>
+ </form>
+
+
+
+</div>
+  </div>
+</div>
+{% assign targetCollectionId = '295680999604' %}
+{% assign targetCollection = collections.all | where: 'id', targetCollectionId | first %}
+{{targetCollection.products_count}}
+
+
+<div class="customfilters">
+<div class="filterbox">
+    Filter by Release Date
+    <select id="customfilters_dp">
+        <option value="hightolow">Date, new to old</option>
+        <option value="lowtohigh">Date, old to new</option>
+    </select>
+</div>
+<div class="all_products CollectionInner__Products">
+  <div id="hightolow" class="mm ProductListWrapper count_{{collections['gundam-model-kit'].products_count}}">
+    <div id="boxes" class="ProductList ProductList--grid ProductList--removeMargin Grid" data-mobile-count="2" data-desktop-count="4">
+          {%- paginate collections['gundam-model-kit'].products by 1000 -%}
+          {% for product in collections['gundam-model-kit'].products %}
+                    <div class="box">
+                    <div class="date Grid__Cell 1/2--phone 1/3--tablet-and-up 1/4--desk" data-date="{{ product.metafields.custom.release_date }}">
+                      <div class="ProductItem" style="visibility:visible">
+                        <div class="ProductItem__Wrapper">
+                          <a class="ProductItem__ImageWrapper" href="{{product.url}}">
+
+                              {{ product.featured_image | img_url: '300x300' | img_tag: product.featured_image.alt }}
+                          </a>
+                          <div class="ProductItem__Info ProductItem__Info--center">
+                                <h2 class="ProductItem__Title Heading">
+                                  {{- product.title | link_to: product.url }}
+                                </h2>
+                                <div class="custom_fields_data">
+                                    <div>
+                                    <b>Release Date:</b> <span>{{ product.metafields.custom.release_date }}</span>
+                                    </div>
+                                    <div>
+                                    <b>Brand:</b> <span>{{ product.metafields.custom.brand }}</span>
+                                    </div>
+                                    <div>
+                                    <b>Series:</b> <span>{{ product.metafields.custom.manual_series }}</span>
+                                    </div>
+                                </div>
+                                <div class="custom_icons">
+                                {% assign manual_sub_images_data = product.metafields.custom.manual_sub_images | remove: "[" | remove: "]" | remove: '"' | remove: "'" | split: ", " %}
+
+                                {% for member in manual_sub_images_data %}
+                                {% assign members_img = member | remove: "''" %}
+                                <div class="single_img">
+                                    <img src="{{ member | escape }}" />
+                                </div>
+
+                                {% endfor %}
+
+
+                                </div>
+                          </div>
+
+                          <div class="ProductItem__PriceList {% if show_price_on_hover %}ProductItem__PriceList--showOnHover{% endif %} Heading">
+                          {% if available %}
+                                {% if product.price_varies and template == 'collection' %}
+                                  <p>From {{ product.price_min | money }} to {{ product.price_max | money }}</p>
+                                {% else %}
+                                  <span class="ProductItem__Price Price Text--subdued"> {{ product.price | money }}</span>
+                                {% endif %}
+                                {% else %}
+                                <p>Sold out</p>
+                          {% endif %}
+                          </div>
+                          <div class="manual_pdflink" style="display:none;">
+                              <a href="{{ product.metafields.custom.manual_pdf_link }}">Open the Manual</a>
+                          </div>
+                          {%- if product.available -%}
+                              <div class="addto_cart_btn">
+                              <form method="post" action="/cart/add">
+                                  <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                                  <input style="display:none" min="1" type="number" id="quantity" name="quantity" value="1"/>
+                                  <input type="submit" value="Add to cart" class="btn" />
+                              </form>
+                              </div>
+                          {% else %}
+                          <div class="addto_cart_btn Outstock">
+                            <p class="Outstock">Out of stock</p>
+                          </div>
+                          {% endif %}
+
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+          {% endfor %}
+            {%- endpaginate -%}
+      </div>
+      <div class="Container">{{- page.content -}}</div>
+    </div>
+  <div id="lowtohigh" class="mm ProductListWrapper count_{{collections['gundam-model-kit'].products_count}}">
+      <div id="boxes" class="ProductList ProductList--grid ProductList--removeMargin Grid" data-mobile-count="2" data-desktop-count="4">
+            {%- paginate collections['gundam-model-kit'].products by 1000 -%}
+            {% for product in collections['gundam-model-kit'].products %}
+                      <div class="box">
+                      <div class="date Grid__Cell 1/2--phone 1/3--tablet-and-up 1/4--desk" data-date="{{ product.metafields.custom.release_date }}">
+                        <div class="ProductItem" style="visibility:visible">
+                          <div class="ProductItem__Wrapper">
+                            <a class="ProductItem__ImageWrapper" href="{{product.url}}">
+
+                                {{ product.featured_image | img_url: '300x300' | img_tag: product.featured_image.alt }}
+                            </a>
+                            <div class="ProductItem__Info ProductItem__Info--center">
+                                  <h2 class="ProductItem__Title Heading">
+                                    {{- product.title | link_to: product.url }}
+                                  </h2>
+                                  <div class="custom_fields_data">
+                                      <div>
+                                      <b>Release Date:</b> <span>{{ product.metafields.custom.release_date }}</span>
+                                      </div>
+                                      <div>
+                                      <b>Brand:</b> <span>{{ product.metafields.custom.brand }}</span>
+                                      </div>
+                                      <div>
+                                      <b>Series:</b> <span>{{ product.metafields.custom.manual_series }}</span>
+                                      </div>
+                                  </div>
+                                  <div class="custom_icons">
+                                  {% assign manual_sub_images_data = product.metafields.custom.manual_sub_images | remove: "[" | remove: "]" | remove: '"' | remove: "'" | split: ", " %}
+
+                                  {% for member in manual_sub_images_data %}
+                                  {% assign members_img = member | remove: "''" %}
+                                  <div class="single_img">
+                                      <img src="{{ member | escape }}" />
+                                  </div>
+
+                                  {% endfor %}
+
+
+                                  </div>
+                            </div>
+
+                            <div class="ProductItem__PriceList {% if show_price_on_hover %}ProductItem__PriceList--showOnHover{% endif %} Heading">
+                            {% if available %}
+                                  {% if product.price_varies and template == 'collection' %}
+                                    <p>From {{ product.price_min | money }} to {{ product.price_max | money }}</p>
+                                  {% else %}
+                                    <span class="ProductItem__Price Price Text--subdued"> {{ product.price | money }}</span>
+                                  {% endif %}
+                                  {% else %}
+                                  <p>Sold out</p>
+                            {% endif %}
+                            </div>
+                            <div class="manual_pdflink" style="display:none;">
+                                <a href="{{ product.metafields.custom.manual_pdf_link }}">Open the Manual</a>
+                            </div>
+                            {%- if product.available -%}
+                                <div class="addto_cart_btn">
+                                <form method="post" action="/cart/add">
+                                    <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                                    <input style="display:none" min="1" type="number" id="quantity" name="quantity" value="1"/>
+                                    <input type="submit" value="Add to cart" class="btn" />
+                                </form>
+                                </div>
+                            {% else %}
+                            <div class="addto_cart_btn Outstock">
+                              <p class="Outstock">Out of stock</p>
+                            </div>
+                            {% endif %}
+
+                          </div>
+                        </div>
+                    </div>
+                    </div>
+            {% endfor %}
+              {%- endpaginate -%}
+        </div>
+        <div class="Container">{{- page.content -}}</div>
+      </div>
+
+</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="https://st3ph.github.io/jquery.easyPaginate/js/jquery.easyPaginate.js"></script>
+<script>
+
+$('form.Manual.Form.Form--spacingTight button.Form__Submit').click(function(){
+    var searchquery= jQuery("#searchquery").val();
+    if(!jQuery("#searchquery").val()){
+    }else{
+        $('form.Manual.Form.Form--spacingTight').attr('action', '/search');
+    }
+
+});
+
+    function sortDateAsc(a, b) {
+  		var date_a  = $(a).find(".date").data("date").split('-');
+  		date_a = new Date(date_a[0], date_a[1] -1, date_a[2]);
+  		var date_b  = $(b).find(".date").data("date").split('-');
+  		date_b= new Date(date_b[0], date_b[1] -1, date_b[2]);
+  		return date_a < date_b ? 1 : -1;
+  	}
+  	$('#hightolow #boxes .box').sort(sortDateAsc).appendTo('#hightolow #boxes');
+
+    function sortDateAsc2(a, b) {
+  		var date_a  = $(a).find(".date").data("date").split('-');
+  		date_a = new Date(date_a[0], date_a[1] -1, date_a[2]);
+  		var date_b  = $(b).find(".date").data("date").split('-');
+  		date_b= new Date(date_b[0], date_b[1] -1, date_b[2]);
+  		return date_a > date_b ? 1 : -1;
+  	}
+  	$('#lowtohigh #boxes .box').sort(sortDateAsc2).appendTo('#lowtohigh #boxes');
+
+    $('#customfilters_dp').on('change', function(){
+    	var customfilters_dp = $(this).val();
+        if(customfilters_dp == "lowtohigh"){
+              $('#hightolow').hide();
+              $('#lowtohigh').show();
+        }else{
+            $('#hightolow').show();
+            $('#lowtohigh').hide();
+        }
+    });
+
+
+  jQuery('.ProductList.ProductList--grid.Grid').easyPaginate({
+            paginateElement: '.Grid__Cell',
+            elementsPerPage: 30,
+           effect: 'fade',
+    });
+</script>
+<style>
+.box {
+    width: 100%;
+}
+.easyPaginateNav {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.easyPaginateNav a.last,.easyPaginateNav a.first {
+    display: none;
+}
+.easyPaginateNav a {padding:5px;}
+.easyPaginateNav a.current {font-weight:bold;text-decoration:underline;}
+.js .features--show-element-staggering .ProductList--grid .ProductItem {
+    visibility: visible !important;
+}
+</style>
+{% schema %}
+{
+  "name": "Manual Search",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name",
+          "default": "Custom field"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_long_text",
+          "label": "Use long text",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "is_required",
+          "label": "Field is required",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "dropdown",
+      "name": "Dropdown",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name",
+          "default": "Custom field"
+        },
+        {
+          "type": "text",
+          "id": "values",
+          "label": "Values",
+          "info": "Separate each value by a comma.",
+          "default": "value 1, value 2, value 3"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "text",
+        "settings": {
+          "title": "Your phone (optional)"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,26 @@
+{%- if section.settings.product_status -%}
+    <ul class="ProductStatus">
+        {% if product.metafields.custom.product_avail %}
+            {% assign productAvail = product.metafields.custom.product_avail.value | split: "," %}
+            {% for productAvailValue in productAvail %}
+                <li class="ProductTag__item ProductTag__item-meta">
+                    <p style="background: {{ section.settings.meta_text_bg }} !important; color: {{ section.settings.meta_text_color }};">
+
+                    {% assign productAvailnew = productAvailValue | remove:" " %}
+
+                    {% if productAvailnew == "InStock3-5days" %}
+                      <a href="https://www.prexhobby.com/pages/pre-order-policy" target="_blank">  {{ productAvailValue }}</a>
+                    {% else %}
+                    <a href="https://www.prexhobby.com/pages/pre-order-policy" target="_blank">  {{ productAvailValue }}</a>
+                    {% endif %}
+                    </p>
+                </li>
+            {% endfor %}
+        {% endif %}
+        <li class="ProductTag__item ProductTag__item-meta freesshipping">
+                    <p style="color: #da5f6f; font-size: 14px; font-weight: bold;">
+                        Free Shipping over $150
+                    </p>
+                </li>
+    </ul>
+{%- endif -%}
