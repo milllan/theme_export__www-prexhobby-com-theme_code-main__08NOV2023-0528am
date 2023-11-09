@@ -1,8 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
 	<head>
-		{% render 'critical-css' %}
-		<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 		<link rel='preconnect dns-prefetch' href='https://triplewhale-pixel.web.app/' crossorigin>
 		<link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin>
 		<script type="lazyload2">
@@ -42,6 +40,62 @@
 			<meta name="description" content="{{ page_description | escape }}">
 		{%- endif -%}
 
+		<!-- Preload assets -->
+
+		{% if request.page_type == 'product' %}
+			{%- liquid
+			assign current_variant = product.selected_or_first_available_variant
+			assign featured_media = current_variant.featured_media | default: product.featured_media
+			-%}
+			<link rel="preload" 
+    			as="image"
+    			fetchpriority="high"
+    			href="{{ featured_media | img_url: 'original', format: 'pjpg' }}" 
+    			imagesrcset="{%- if featured_media.width >= 180 -%}{{ featured_media | img_url: '180x180', format: 'pjpg' }} 180w,{%- endif -%}
+    			{%- if featured_media.width >= 360 -%}{{ featured_media | img_url: '360x360', format: 'pjpg' }} 360w,{%- endif -%}
+    			{%- if featured_media.width >= 540 -%}{{ featured_media | img_url: '540x540', format: 'pjpg' }} 540w,{%- endif -%}
+    			{%- if featured_media.width >= 720 -%}{{ featured_media | img_url: '720x720', format: 'pjpg' }} 720w,{%- endif -%}
+    			{%- if featured_media.width >= 1080 -%}{{ featured_media | img_url: '1080x1080', format: 'pjpg' }} 1080w,{%- endif -%}
+    			{%- if featured_media.width >= 1296 -%}{{ featured_media | img_url: '1296x1296', format: 'pjpg' }} 1296w,{%- endif -%}
+    			{{ featured_media | img_url: 'original' }} {{ featured_media.width }}w"
+    			imagesizes="(max-width: 1007px) 99vw, 42vw">
+			<style>
+
+			/* TBT fix for collection page */
+				@media screen and (max-width: 640px) {
+					.ProductList--grid>.Grid__Cell {
+						content-visibility: auto;
+						contain-intrinsic-size: auto calc(((100vw + 10px - 24px) / 2) - 10px) auto calc(33vw + 105px);
+					}
+				}
+			</style>
+		{%- endif -%}
+
+		{% if template contains 'collection' %}
+			{%- if collection.all_products_count > 0 -%}
+				{%- if section.settings.show_collection_image and collection.image and collection.template_suffix != 'no-image' -%}
+					<link rel="preload" 
+						as="image"
+						fetchpriority="high"
+						href="{{ collection.image | img_url: 'x600', format: 'pjpg' }}">
+				{%- endif -%}
+			{%- endif -%}
+			<style>
+			/* TBT fix for collection page */
+				@media screen and (max-width: 640px) {
+					.ProductList--grid>.Grid__Cell {
+						content-visibility: auto;
+						contain-intrinsic-size: auto calc(((100vw + 10px - 24px) / 2) - 10px) auto calc(33vw + 105px);
+					}
+				}
+			</style>
+		{%- endif -%}
+  
+		<!-- end Preload assets -->
+
+		<!-- script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script -->
+        <script src="{{ 'jquery.min.js' | asset_url  }}" defer></script>
+		{% render 'critical-css' %}
 		
 		{% if template contains 'collection' %}
 			<link rel="canonical" href="{{ shop.url }}{{ collection.url }}" /> 
@@ -329,15 +383,25 @@
 		<!-- added by James google verfication page end -->
   <!-- Hotjar Tracking Code for https://www.prexhobby.com/ -->
 <script>
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:3633175,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+	function delayed3rdPartyCode() {
+		events.forEach(eventType => {
+		  document.removeEventListener(eventType, delayed3rdPartyCode);
+		});
+		(function(h,o,t,j,a,r){
+			h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+			h._hjSettings={hjid:3633175,hjsv:6};
+			a=o.getElementsByTagName('head')[0];
+			r=o.createElement('script');r.async=1;
+			r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+			a.appendChild(r);
+		})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+	}
+	let events = ["keydown", "mousedown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"];
+	events.forEach(e => {
+		document.addEventListener(e, delayed3rdPartyCode);
+	});
 </script>
+<link rel='preconnect' href='https://static.hotjar.com' crossorigin>
 	</head>
 
 	{%- capture classes -%}features--heading-{{ settings.heading_size }}{%- endcapture -%}

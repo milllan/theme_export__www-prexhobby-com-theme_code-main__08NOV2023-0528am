@@ -78,4 +78,19 @@ body:not(.spo-loaded) [name="goto_amazon_payments"] {opacity: 1; pointer-events:
 
     {% comment %} <script src="https://amaicdn.com/preorder2/common.js"></script> {% endcomment %}
 
-<script type="lazyload2" data-src="https://www.google.com/recaptcha/api.js?render=6LeTRAoeAAAAACKeCUlhSkXvVTIwv0_OgDTqgYsa"></script>
+<!--script type="lazyload2" data-src="https://www.google.com/recaptcha/api.js?render=6LeTRAoeAAAAACKeCUlhSkXvVTIwv0_OgDTqgYsa"></!--script-->
+<script type="lazyload2">
+	function delayedRecaptchaJs() {
+		evts.forEach(eventType => {
+		  document.removeEventListener(eventType, delayedRecaptchaJs);
+		});
+        let s = document.createElement("script");
+        s.onload=function(){};
+        s.src='https://www.google.com/recaptcha/api.js?render=6LeTRAoeAAAAACKeCUlhSkXvVTIwv0_OgDTqgYsa';
+        document.head.appendChild(s)
+	}
+	let evts = ["keydown", "mousedown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"];
+	evts.forEach(e => {
+		document.addEventListener(e, delayedRecaptchaJs);
+	});
+</script>

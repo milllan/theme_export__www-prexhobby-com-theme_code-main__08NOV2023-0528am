@@ -50,7 +50,9 @@ function getUrlParameter(name) {
   para = getUrlParameter(qsp);
 if(para == "yes"){
   $('body').addClass("customfilters");
-  $('.Product__Wrappercustomdata').show();
+  $('.Product__Wrappercustomdata')
+    .show()
+    .css('contain-intrinsic-size', 'auto');
   $('.custom.header').show();
   $('.customhead').show();
 

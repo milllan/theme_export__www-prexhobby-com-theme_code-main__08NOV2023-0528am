@@ -134,13 +134,15 @@
   <div class="customhead" style="display:none">
           <h2>{{ product.title }}</h2>
     </div>
-  <div class="Product__Wrappercustomdata" style="display:none">
+  <div class="Product__Wrappercustomdata" style="display:none;content-visibility:hidden">
 
     <div class="costomerinner">
       <div class="costomerinner_data">
 
    <div class="leftdata">
-    {{ product.featured_image | img_url: '600x600' | img_tag: product.featured_image.alt }}
+
+    {{ product.featured_image | img_url: '600x600', format: 'pjpg' | img_tag: product.featured_image.alt, loading: 'lazy' }}
+
    </div>
     <div class="rightdata">
             <div class="bl_detail_box_wrapper">
@@ -268,7 +270,27 @@
               <div class="AspectRatio AspectRatio--withFallback" style="padding-bottom: {{ 100.0 | divided_by: media.aspect_ratio }}%; --aspect-ratio: {{ media.aspect_ratio }};">
                 {% assign image_url = media | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
 
-                <img class="Image--lazyLoad Image--fadeIn" data-src="{{ image_url }}" data-widths="[{{ supported_sizes }}]" data-sizes="auto" data-expand="-100" alt="{{ media.alt | escape }}" data-max-width="{{ media.width }}" data-max-height="{{ media.height }}" data-original-src="{{ media | img_url: 'master' }}">
+                <img class="{% if media_count == 0  %}skip-lazy{% else %}Image--lazyLoad Image--fadeIn{% endif %} {{ media_count }}"
+                  {% if media_count == 0 %}
+                    fetchpriority="high" decoding="async"
+                    srcset="{%- if media.width >= 180 -%}{{ media | img_url: '180x180', format: 'pjpg' }} 180w,{%- endif -%}
+                          {%- if media.width >= 360 -%}{{ media | img_url: '360x360', format: 'pjpg' }} 360w,{%- endif -%}
+                          {%- if media.width >= 540 -%}{{ media | img_url: '540x540', format: 'pjpg' }} 540w,{%- endif -%}
+                          {%- if media.width >= 720 -%}{{ media | img_url: '720x720', format: 'pjpg' }} 720w,{%- endif -%}
+                          {%- if media.width >= 1080 -%}{{ media | img_url: '1080x1080', format: 'pjpg' }} 1080w,{%- endif -%}
+                          {%- if media.width >= 1296 -%}{{ media | img_url: '1296x1296', format: 'pjpg' }} 1296w,{%- endif -%}
+                          {{ media | img_url: 'original' }} {{ media.width }}w"
+                    sizes="(max-width: 1007px) 99vw, 42vw"
+
+                  {% endif %}
+                  data-src="{{ image_url }}"
+                  data-widths="[{{ supported_sizes }}]"
+                  data-sizes="auto"
+                  data-expand="-100"
+                  alt="{{ media.alt | escape }}"
+                  data-max-width="{{ media.width }}"
+                  data-max-height="{{ media.height }}"
+                  data-original-src="{{ media | img_url: 'master' }}">
                 <span class="Image__Loader"></span>
 
                 <noscript>
@@ -337,12 +359,12 @@
 
                     {%- if section.settings.stack_images -%}
                       <a href="#Media{{ media.id }}" data-offset="-25" data-focus-on-click data-media-id="{{ media.id }}" class="Product__SlideshowNavImage AspectRatio {% if forloop.first %}is-selected{% endif %}" style="--aspect-ratio: {{ media.preview_image.aspect_ratio }}">
-                        <img src="{{ media | img_url: '160x' }}" alt="{{ media.alt | escape }}">
+                        <img decoding="async" loading="lazy" src="{{ media | img_url: '160x' }}" alt="{{ media.alt | escape }}">
                         {{- nav_item_badge -}}
                       </a>
                     {%- else -%}
                       <a href="{{ media | img_url: '1024x' }}" data-media-id="{{ media.id }}" class="Product__SlideshowNavImage AspectRatio {% if media.id == initial_media_id %}is-selected{% endif %}" style="--aspect-ratio: {{ media.preview_image.aspect_ratio }}">
-                        <img src="{{ media | img_url: '160x' }}" alt="{{ media.alt | escape }}">
+                        <img decoding="async" loading="lazy" src="{{ media | img_url: '160x' }}" alt="{{ media.alt | escape }}">
                         {{- nav_item_badge -}}
                       </a>
                     {%- endif -%}
